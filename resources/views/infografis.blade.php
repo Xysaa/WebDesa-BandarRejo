@@ -93,6 +93,7 @@
 
 
 <!-- Chart Section - Berdasarkan Kelompok Umur -->
+<!-- Chart Section - Berdasarkan Kelompok Umur -->
 <section class="bg-gray-100 py-6 px-8 md:px-12 lg:px-16">
     <div class="container mx-auto max-w-7xl">
         <h4 class="text-4xl font-bold text-green-700 mb-4">Berdasarkan Kelompok Umur</h4>
@@ -126,6 +127,124 @@
         </div>
     </div>
 </section>
+
+<!-- Script Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Data berdasarkan informasi Anda
+const ageGroupData = {
+    labels: ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', 
+             '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', 
+             '75-79', '80-84', '85+'],
+    datasets: [{
+        label: 'Laki-laki',
+        data: [45, 48, 52, 56, 50, 42, 38, 35, 30, 28, 25, 20, 15, 10, 5, 3, 1, 1],
+        backgroundColor: 'rgba(21, 128, 61, 0.8)', // green-700
+        borderColor: 'rgb(21, 128, 61)',
+        borderWidth: 1
+    }, {
+        label: 'Perempuan',
+        data: [42, 46, 50, 52, 54, 48, 40, 36, 32, 26, 22, 18, 14, 9, 6, 3, 2, 1],
+        backgroundColor: 'rgba(253, 186, 116, 0.8)', // orange-300
+        borderColor: 'rgb(253, 186, 116)',
+        borderWidth: 1
+    }]
+};
+
+// Konfigurasi Chart dengan Animasi
+const config = {
+    type: 'bar',
+    data: ageGroupData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+            duration: 2000, // Durasi animasi 2 detik
+            easing: 'easeOutQuart', // Efek easing untuk animasi smooth
+            delay: (context) => {
+                let delay = 0;
+                if (context.type === 'data' && context.mode === 'default') {
+                    delay = context.dataIndex * 50; // Delay 50ms per bar
+                }
+                return delay;
+            }
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                    font: {
+                        size: 14,
+                        family: 'system-ui'
+                    },
+                    padding: 15
+                }
+            },
+            tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                padding: 12,
+                titleFont: {
+                    size: 14
+                },
+                bodyFont: {
+                    size: 13
+                },
+                callbacks: {
+                    label: function(context) {
+                        let label = context.dataset.label || '';
+                        if (label) {
+                            label += ': ';
+                        }
+                        label += context.parsed.y + ' orang';
+                        return label;
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    font: {
+                        size: 12
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Jumlah Penduduk',
+                    font: {
+                        size: 14,
+                        weight: 'bold'
+                    }
+                }
+            },
+            x: {
+                ticks: {
+                    font: {
+                        size: 11
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Kelompok Umur',
+                    font: {
+                        size: 14,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    }
+};
+
+// Render Chart saat halaman selesai dimuat
+window.addEventListener('load', function() {
+    const ctx = document.getElementById('ageGroupChart').getContext('2d');
+    const ageGroupChart = new Chart(ctx, config);
+});
+</script>
+
 
 <!-- By Village Section - Berdasarkan Dusun -->
 <!-- Pie Chart Section -->
@@ -313,14 +432,199 @@
 </html>
 
 <!-- Education Section - Berdasarkan Pendidikan -->
-<section class="bg-gray-100 py-12 px-8 md:px-12 lg:px-16">
+<section class="bg-gray-100 py-6 px-8 md:px-12 lg:px-16">
     <div class="container mx-auto max-w-7xl">
-        <h4 class="text-4xl font-bold text-green-700 mb-6">Berdasarkan Pendidikan</h4>
-        <div class="bg-white/50 backdrop-blur rounded-lg shadow p-6 flex justify-center items-center">
-            <img src="{{ asset('images/aset infografis/Pendidikan.png') }}" alt="Grafik Pendidikan" class="w-full h-auto rounded-lg object-cover">
+        <h4 class="text-4xl font-bold text-green-700 mb-4">Berdasarkan Pendidikan</h4>
+        <!-- Chart -->
+        <div class="bg-white/50 backdrop-blur rounded-lg shadow p-5">
+            <div class="h-[550px]">
+                <canvas id="educationChart"></canvas>
+            </div>
         </div>
     </div>
 </section>
+
+<!-- Script Chart.js untuk Pendidikan -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+// Data Pendidikan
+const educationData = {
+    labels: [
+        'Tidak/Belum Sekolah', 
+        'Belum Tamat SD/Sederajat', 
+        'Tamat SD/Sederajat', 
+        'SLTP/Sederajat', 
+        'SLTA/Sederajat', 
+        'Diploma I/II', 
+        'Diploma III/Sarjana Muda', 
+        'Diploma IV/Strata I', 
+        'Strata II', 
+        'Strata III'
+    ],
+    datasets: [{
+        label: 'Jumlah Penduduk',
+        data: [167, 105, 220, 153, 202, 5, 9, 43, 0, 0],
+        backgroundColor: 'rgba(21, 128, 61, 0.85)',
+        borderColor: 'rgb(21, 128, 61)',
+        borderWidth: 2,
+        borderRadius: 8,
+        borderSkipped: false
+    }]
+};
+
+// Konfigurasi Chart dengan Animasi dan Data Labels
+const educationConfig = {
+    type: 'bar',
+    data: educationData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+            duration: 1500,
+            easing: 'easeOutQuart',
+            delay: (context) => {
+                let delay = 0;
+                if (context.type === 'data' && context.mode === 'default') {
+                    delay = context.dataIndex * 80;
+                }
+                return delay;
+            }
+        },
+        layout: {
+            padding: {
+                top: 40,
+                bottom: 20,
+                left: 10,
+                right: 10
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                padding: 12,
+                titleFont: {
+                    size: 13,
+                    weight: 'bold'
+                },
+                bodyFont: {
+                    size: 12
+                },
+                displayColors: false,
+                callbacks: {
+                    title: function(context) {
+                        return context[0].label;
+                    },
+                    label: function(context) {
+                        return 'Jumlah: ' + context.parsed.y;
+                    }
+                }
+            },
+            datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: '#1e3a8a',
+                font: {
+                    weight: 'bold',
+                    size: 12
+                },
+                offset: 5,
+                formatter: function(value) {
+                    return value;
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 250,
+                ticks: {
+                    stepSize: 50,
+                    font: {
+                        size: 12
+                    }
+                },
+                grid: {
+                    color: 'rgba(0, 0, 0, 0.1)',
+                    drawBorder: false
+                }
+            },
+            x: {
+                ticks: {
+                    font: {
+                        size: 9
+                    },
+                    maxRotation: 0,
+                    minRotation: 0,
+                    autoSkip: false,
+                    padding: 10,
+                    callback: function(value, index) {
+                        const label = this.getLabelForValue(value);
+                        // Pecah label jadi beberapa baris
+                        const words = label.split(/[\s/]+/);
+                        const lines = [];
+                        let currentLine = '';
+                        
+                        words.forEach(word => {
+                            const testLine = currentLine + (currentLine ? ' ' : '') + word;
+                            if (testLine.length > 10 && currentLine) {
+                                lines.push(currentLine);
+                                currentLine = word;
+                            } else {
+                                currentLine = testLine;
+                            }
+                        });
+                        if (currentLine) lines.push(currentLine);
+                        
+                        return lines;
+                    }
+                },
+                grid: {
+                    display: false
+                }
+            }
+        }
+    },
+    plugins: [ChartDataLabels]
+};
+
+// Render Chart saat halaman selesai dimuat
+window.addEventListener('load', function() {
+    const ctx = document.getElementById('educationChart');
+    if (ctx) {
+        const educationChart = new Chart(ctx.getContext('2d'), educationConfig);
+
+        // Tambahkan interaksi hover untuk ubah warna
+        ctx.addEventListener('mousemove', (e) => {
+            const points = educationChart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
+            
+            if (points.length) {
+                const dataIndex = points[0].index;
+                const newColors = educationData.datasets[0].data.map((_, index) => {
+                    if (index === dataIndex) {
+                        return 'rgba(110, 231, 183, 0.9)'; // Hijau terang
+                    }
+                    return 'rgba(21, 128, 61, 0.85)'; // Hijau tua default
+                });
+                
+                educationChart.data.datasets[0].backgroundColor = newColors;
+                educationChart.update('none');
+            } else {
+                educationChart.data.datasets[0].backgroundColor = 'rgba(21, 128, 61, 0.85)';
+                educationChart.update('none');
+            }
+        });
+
+        ctx.addEventListener('mouseleave', () => {
+            educationChart.data.datasets[0].backgroundColor = 'rgba(21, 128, 61, 0.85)';
+            educationChart.update('none');
+        });
+    }
+});
+</script>
 
 <!-- Occupation Section - Berdasarkan Pekerjaan -->
 <section class="bg-gray-100 py-12 px-8 md:px-12 lg:px-16">
@@ -359,16 +663,6 @@
                     <p class="text-4xl font-bold text-gray-700">34</p>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- Voter Eligibility Section - Berdasarkan Wajib Pilih -->
-<section class="bg-gray-100 py-12 px-8 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-7xl">
-        <h4 class="text-4xl font-bold text-green-700 mb-6">Berdasarkan Wajib Pilih</h4>
-        <div class="bg-white/50 backdrop-blur rounded-lg shadow p-6 flex justify-center items-center">
-            <img src="{{ asset('images/aset infografis/Wajib pilih.png') }}" alt="Grafik Wajib Pilih" class="w-full h-auto rounded-lg object-cover">
         </div>
     </div>
 </section>
@@ -450,7 +744,7 @@
         ['name' => 'Dusun 4', 'count' => 9,  'icon' => 'images/aset infografis/3.png'],
         ['name' => 'Dusun 5', 'count' => 7,  'icon' => 'images/aset infografis/1.png'],
         ['name' => 'Dusun 6', 'count' => 3,  'icon' => 'images/aset infografis/3.png'],
-        ['name' => 'Dusun 7', 'count' => 4,  'icon' => 'images/aset infografis/1.png'],
+        ['name' => 'Dusun 7', 'count' => 4,  'icon' => 'images/aset infografis/3.png'],
         // Jika hanya 1 data, misal: ['name' => 'Dusun 1', 'count' => 12, ...]
         ];
         @endphp
@@ -478,11 +772,11 @@
 
     @php
     $bansosPrograms = [
-      ['name' => 'PKH',      'count' => 120, 'icon' => 'images/aset infografis/pkh.png'],
-      ['name' => 'BPNT',     'count' => 98,  'icon' => 'images/aset infografis/bpnt.png'],
-      ['name' => 'PIP',      'count' => 75,  'icon' => 'images/aset infografis/pip.png'],
-      ['name' => 'JKN-KIS',  'count' => 150, 'icon' => 'images/aset infografis/jkn-kis.png'],
-      ['name' => 'BLT',      'count' => 60,  'icon' => 'images/aset infografis/blt.png'],
+      ['name' => 'Program Keluarga Harapan',      'count' => 120, 'icon' => 'images/aset infografis/pkh.png'],
+      ['name' => 'Bantuan Pangan Non Tunai',     'count' => 98,  'icon' => 'images/aset infografis/bpnt.png'],
+      ['name' => 'Program Indonesia Pintar',      'count' => 75,  'icon' => 'images/aset infografis/pip.png'],
+      ['name' => 'Jaminan Kesehatan Nasional-KIS',  'count' => 150, 'icon' => 'images/aset infografis/jkn-kis.png'],
+      ['name' => ' Bantuan Langsung Tunai',      'count' => 60,  'icon' => 'images/aset infografis/blt.png'],
     ];
     @endphp
 
