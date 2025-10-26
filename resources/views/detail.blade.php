@@ -109,9 +109,9 @@
 </div>
 @endsection
 
-{{-- =================== INLINE STYLE: TETAP DI FILE INI =================== --}}
+{{-- =================== INLINE STYLE: SMOOTH TRANSITIONS =================== --}}
 <style>
-/* Hormati prefers-reduced-motion agar ramah aksesibilitas */
+/* Hormati prefers-reduced-motion untuk aksesibilitas */
 @media (prefers-reduced-motion: reduce) {
   .anim, .sidebar-anim, .hero-anim {
     animation: none !important;
@@ -122,40 +122,94 @@
   }
 }
 
-/* State awal sebelum animasi berjalan */
-.anim, .sidebar-anim, .hero-anim { opacity: 0; }
+/* State awal sebelum animasi - lebih subtle */
+.anim, .sidebar-anim, .hero-anim {
+  opacity: 0;
+  will-change: opacity, transform;
+}
 
-/* Keyframes elegan */
+/* Keyframes dengan pergerakan lebih halus dan blur minimal */
 @keyframes fadeUp {
-  0% { opacity: 0; transform: translateY(10px); filter: blur(2px); }
-  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(0.5px);
+  }
+  60% {
+    opacity: 0.8;
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
+
 @keyframes fadeRight {
-  0% { opacity: 0; transform: translateX(10px); filter: blur(2px); }
-  100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+  0% {
+    opacity: 0;
+    transform: translateX(8px);
+    filter: blur(0.5px);
+  }
+  60% {
+    opacity: 0.8;
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
 }
+
 @keyframes revealScale {
-  0% { opacity: 0; transform: scale(0.985); filter: blur(2px); }
-  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+  0% {
+    opacity: 0;
+    transform: scale(0.99);
+    filter: blur(0.5px);
+  }
+  60% {
+    opacity: 0.9;
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
 }
 
-/* Jalankan animasi otomatis saat render */
+/* Animasi dengan easing lebih natural */
 .anim {
-  animation: fadeUp 620ms cubic-bezier(.22,.61,.36,1) both;
+  animation: fadeUp 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: var(--d, 0ms);
-}
-.sidebar-anim {
-  animation: fadeRight 640ms cubic-bezier(.22,.61,.36,1) both;
-  animation-delay: var(--d, 0ms);
-}
-.hero-anim {
-  animation: revealScale 720ms cubic-bezier(.16,.84,.44,1) both;
-  animation-delay: 260ms;
 }
 
-/* Responsivitas tambahan agar tidak “kegencet” di layar kecil */
-.prose { overflow-wrap: anywhere; }
+.sidebar-anim {
+  animation: fadeRight 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.hero-anim {
+  animation: revealScale 750ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 240ms;
+}
+
+/* Optimasi performa dengan GPU acceleration */
+.anim, .sidebar-anim, .hero-anim {
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Responsivitas tambahan */
+.prose {
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 640px) {
-  .prose p, .prose li { line-height: 1.6; }
+  .prose p, .prose li {
+    line-height: 1.6;
+  }
 }
 </style>
