@@ -93,3 +93,6 @@ Route::get('/berita/{slug}', function ($slug) {
     return view('detail', compact('artikel','berita'));
 });
 
+Route::get('/infografis', function () {
+    return view('infografis');
+});
