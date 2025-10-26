@@ -12,3 +12,7 @@ Route::get('/home', function () {
 Route::get('/home', function () {
     return view('welcome');
 });
+
+Route::get('/infografis', function () {
+    return view('infografis');
+});
