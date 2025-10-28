@@ -13,9 +13,11 @@
     @vite('resources/css/app.css')
 
     <style>
-        /* fallback bila Tailwind belum di-extend fontFamily */
+
         .font-poppins { font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans"; }
     </style>
+    <style>[x-cloak]{ display:none !important; }</style>
+
 </head>
 <body class="bg-gray-50 text-gray-900 font-poppins">
     <x-navbar />
@@ -27,5 +29,7 @@
     <x-footer />
 
     @stack('scripts')
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </body>
 </html>
