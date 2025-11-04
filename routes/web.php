@@ -24,8 +24,9 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/potensi', fn() => view('dashboard.potensi'))->name('dashboard.potensi');
     Route::get('/stunting', fn() => view('dashboard.stunting'))->name('dashboard.stunting');
     Route::get('/kepaladusun', fn() => view('dashboard.kadus'))->name('dashboard.kepaladusun');
-});
+    Route::view('/feedback', 'dashboard.feedback')->name('dashboard.feedback');
 
+});
 Route::get('/berita', function () {
     return view('berita');
 });

@@ -215,61 +215,6 @@
       </div>
     </div>
 
-<div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="rounded-lg border border-gray-300 bg-white shadow-sm overflow-hidden">
-        <div class="aspect-[16/11] bg-gray-50 flex items-center justify-center">
-          <img src="{{ asset('images/APB.png') }}"
-               class="max-h-full object-contain p-6">
-        </div>
-      </div>
-
-
-      @php
-        $pendapatan = 1188326200; // contoh
-        $belanja    = 1166663428; // contoh
-      @endphp
-      <div class="rounded-lg border border-gray-300 bg-white shadow-sm p-5 flex flex-col">
-        <h3 class="text-2xl md:text-3xl font-extrabold text-[#2C7961]">APB DESA 2024</h3>
-        <p class="text-black/80 text-sm md:text-base mt-1">
-          Akses cepat dan transparan terhadap APB Desa serta proyek pembangunan
-        </p>
-
-        <div class="mt-4 space-y-4">
-          {{-- Pendapatan Desa --}}
-          <div>
-            <div class="text-[12px] md:text-sm text-black/70 font-semibold">Pendapatan Desa</div>
-            <div class="mt-2 rounded-md bg-gray-100 border border-gray-200 px-4 py-3">
-              <div class="text-2xl md:text-3xl font-extrabold text-black">
-                Rp{{ number_format($pendapatan,0,',','.') }},00
-              </div>
-            </div>
-          </div>
-
-          {{-- Belanja Desa --}}
-          <div>
-            <div class="text-[12px] md:text-sm text-black/70 font-semibold">Belanja Desa</div>
-            <div class="mt-2 rounded-md bg-gray-100 border border-gray-200 px-4 py-3">
-              <div class="text-2xl md:text-3xl font-extrabold text-black">
-                Rp{{ number_format($belanja,0,',','.') }},00
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-4 flex justify-end">
-          <a href="{{ url('/apb-desa') }}"
-             class="inline-flex items-center gap-2 text-[13px] md:text-sm font-extrabold tracking-wide
-                    text-black hover:text-[#2C7961] transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M4 4h16v2H4V4zm0 4h10v2H4V8zm0 4h16v2H4v-2zm0 4h10v2H4v-2z"/>
-            </svg>
-            LIHAT DATA LEBIH LENGKAP
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
 </section>
 
 {{-- ================= POTENSI DESA ================= --}}
@@ -450,6 +395,39 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
+{{-- ================= FEEDBACK PENGUNJUNG ================= --}}
+<section class="bg-gray-100 py-10 font-poppins">
+  <div class="max-w-2xl mx-auto px-4 md:px-6">
+    <h2 class="text-2xl md:text-3xl font-extrabold text-[#2C7961] mb-2 text-center">Kritik & Saran</h2>
+    <p class="text-sm md:text-base text-black/80 mb-6 text-center">
+      Kami sangat menghargai masukan Anda untuk meningkatkan pelayanan dan kualitas website Desa Bandar Rejo. Silakan tinggalkan kritik, saran, atau pesan Anda di bawah ini.
+    </p>
+    <form method="POST" action="{{ url('/feedback') }}" class="bg-white rounded-lg shadow-md p-6 space-y-4">
+      @csrf
+      <div>
+        <label for="nama" class="block text-sm font-semibold text-gray-700 mb-1">Nama</label>
+        <input type="text" id="nama" name="nama" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2C7961]" placeholder="Nama Anda (opsional)">
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">Email</label>
+        <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2C7961]" placeholder="Email Anda (opsional)">
+      </div>
+      <div>
+        <label for="pesan" class="block text-sm font-semibold text-gray-700 mb-1">Pesan / Saran</label>
+        <textarea id="pesan" name="pesan" rows="4" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2C7961]" placeholder="Tulis kritik, saran, atau pesan Anda di sini..."></textarea>
+      </div>
+      <div class="flex justify-end">
+        <button type="submit" class="bg-[#2C7961] hover:bg-[#256952] text-white font-semibold px-6 py-2 rounded-md transition">
+          Kirim Feedback
+        </button>
+      </div>
+    </form>
+    <p class="text-xs text-gray-500 mt-3 text-center">
+      Data Anda akan dijaga kerahasiaannya. Terima kasih atas partisipasi Anda!
+    </p>
+  </div>
+</section>
 
 
 @endsection

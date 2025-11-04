@@ -26,6 +26,9 @@
         <a href="{{ route('dashboard.potensi') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.potensi') ? 'bg-[#256952] font-semibold' : '' }}">
             <i class="fas fa-seedling mr-2"></i> Potensi Desa
         </a>
+        <a href="{{ route('dashboard.feedback') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.feedback') ? 'bg-[#256952] font-semibold' : '' }}">
+            <i class="fas fa-comments mr-2"></i> Feedback
+        </a>
     </nav>
     <form method="POST" action="{{ route('logout') }}" class="p-4 border-t border-white/10">
         @csrf
