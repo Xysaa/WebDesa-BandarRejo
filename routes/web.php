@@ -110,3 +110,6 @@ Route::get('/berita/{slug}', function ($slug) {
 Route::get('/infografis', function () {
     return view('infografis');
 });
+Route::get('/profil-desa', function () {
+    return view('profil');
+});
