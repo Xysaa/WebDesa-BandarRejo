@@ -93,7 +93,6 @@
 
 
 <!-- Chart Section - Berdasarkan Kelompok Umur -->
-<!-- Chart Section - Berdasarkan Kelompok Umur -->
 <section class="bg-gray-100 py-6 px-8 md:px-12 lg:px-16">
     <div class="container mx-auto max-w-7xl">
         <h4 class="text-4xl font-bold text-green-700 mb-4">Berdasarkan Kelompok Umur</h4>
@@ -431,6 +430,42 @@ window.addEventListener('load', function() {
 </body>
 </html>
 
+<!-- Occupation Section - Berdasarkan Pekerjaan -->
+<section class="bg-gray-100 py-12 px-8 md:px-12 lg:px-16">
+    <div class="container mx-auto max-w-7xl">
+        <h4 class="text-4xl font-bold text-green-700 mb-6">Berdasarkan Pekerjaan</h4>
+        
+            <!-- Top Occupations Cards -->
+            <div class="md:col-span-2 grid md:grid-cols-2 gap-6">
+                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
+                    <p class="text-lg text-gray-700 font-semibold mb-2">Pelajar/Mahasiswa</p>
+                    <p class="text-4xl font-bold text-gray-700">241</p>
+                </div>
+                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
+                    <p class="text-lg text-gray-700 font-semibold mb-2">Belum/Tidak Bekerja</p>
+                    <p class="text-4xl font-bold text-gray-700">230</p>
+                </div>
+                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
+                    <p class="text-lg text-gray-700 font-semibold mb-2">Mengurus Rumah Tangga</p>
+                    <p class="text-4xl font-bold text-gray-700">194</p>
+                </div>
+                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
+                    <p class="text-lg text-gray-700 font-semibold mb-2">Petani/Pekebun</p>
+                    <p class="text-4xl font-bold text-gray-700">109</p>
+                </div>
+                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
+                    <p class="text-lg text-gray-700 font-semibold mb-2">Wiraswasta</p>
+                    <p class="text-4xl font-bold text-gray-700">53</p>
+                </div>
+                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
+                    <p class="text-lg text-gray-700 font-semibold mb-2">Nelayan/Perikanan</p>
+                    <p class="text-4xl font-bold text-gray-700">34</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Education Section - Berdasarkan Pendidikan -->
 <section class="bg-gray-100 py-6 px-8 md:px-12 lg:px-16">
     <div class="container mx-auto max-w-7xl">
@@ -448,7 +483,11 @@ window.addEventListener('load', function() {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 <script>
-// Data Pendidikan
+
+// Registrasi plugin datalabels agar berfungsi
+Chart.register(ChartDataLabels);
+
+// Berdasarkan Data Pendidikan
 const educationData = {
     labels: [
         'Tidak/Belum Sekolah', 
@@ -456,16 +495,15 @@ const educationData = {
         'Tamat SD/Sederajat', 
         'SLTP/Sederajat', 
         'SLTA/Sederajat', 
-        'Diploma I/II', 
-        'Diploma III/Sarjana Muda', 
-        'Diploma IV/Strata I', 
-        'Strata II', 
-        'Strata III'
+        'Diploma I', 
+        'Diploma III', 
+        'Diploma IV', 
+        'Strata I',
     ],
     datasets: [{
         label: 'Jumlah Penduduk',
-        data: [167, 105, 220, 153, 202, 5, 9, 43, 0, 0],
-        backgroundColor: 'rgba(21, 128, 61, 0.85)',
+        data: [167, 105, 220, 153, 202, 5, 9, 43, 60],
+        backgroundColor: Array(10).fill('rgba(21, 128, 61, 0.85)'),
         borderColor: 'rgb(21, 128, 61)',
         borderWidth: 2,
         borderRadius: 8,
@@ -473,7 +511,7 @@ const educationData = {
     }]
 };
 
-// Konfigurasi Chart dengan Animasi dan Data Labels
+// Konfigurasi Chart dengan Animasi dan Data Labels (tanpa menampilkan angka)
 const educationConfig = {
     type: 'bar',
     data: educationData,
@@ -524,17 +562,7 @@ const educationConfig = {
                 }
             },
             datalabels: {
-                anchor: 'end',
-                align: 'end',
-                color: '#1e3a8a',
-                font: {
-                    weight: 'bold',
-                    size: 12
-                },
-                offset: 5,
-                formatter: function(value) {
-                    return value;
-                }
+                display: false // Matikan label angka di atas bar
             }
         },
         scales: {
@@ -561,9 +589,8 @@ const educationConfig = {
                     minRotation: 0,
                     autoSkip: false,
                     padding: 10,
-                    callback: function(value, index) {
+                    callback: function(value) {
                         const label = this.getLabelForValue(value);
-                        // Pecah label jadi beberapa baris
                         const words = label.split(/[\s/]+/);
                         const lines = [];
                         let currentLine = '';
@@ -597,75 +624,34 @@ window.addEventListener('load', function() {
     if (ctx) {
         const educationChart = new Chart(ctx.getContext('2d'), educationConfig);
 
-        // Tambahkan interaksi hover untuk ubah warna
+        // Warna default untuk semua bar
+        const defaultColor = 'rgba(21, 128, 61, 0.85)';
+        const highlightColor = 'rgba(110, 231, 183, 0.9)';
+
         ctx.addEventListener('mousemove', (e) => {
             const points = educationChart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
             
             if (points.length) {
                 const dataIndex = points[0].index;
                 const newColors = educationData.datasets[0].data.map((_, index) => {
-                    if (index === dataIndex) {
-                        return 'rgba(110, 231, 183, 0.9)'; // Hijau terang
-                    }
-                    return 'rgba(21, 128, 61, 0.85)'; // Hijau tua default
+                    return index === dataIndex ? highlightColor : defaultColor;
                 });
                 
                 educationChart.data.datasets[0].backgroundColor = newColors;
                 educationChart.update('none');
             } else {
-                educationChart.data.datasets[0].backgroundColor = 'rgba(21, 128, 61, 0.85)';
+                educationChart.data.datasets[0].backgroundColor = Array(educationData.datasets[0].data.length).fill(defaultColor);
                 educationChart.update('none');
             }
         });
 
         ctx.addEventListener('mouseleave', () => {
-            educationChart.data.datasets[0].backgroundColor = 'rgba(21, 128, 61, 0.85)';
+            educationChart.data.datasets[0].backgroundColor = Array(educationData.datasets[0].data.length).fill(defaultColor);
             educationChart.update('none');
         });
     }
 });
 </script>
-
-<!-- Occupation Section - Berdasarkan Pekerjaan -->
-<section class="bg-gray-100 py-12 px-8 md:px-12 lg:px-16">
-    <div class="container mx-auto max-w-7xl">
-        <h4 class="text-4xl font-bold text-green-700 mb-6">Berdasarkan Pekerjaan</h4>
-        
-        <div class="grid md:grid-cols-3 gap-6 items-stretch">
-            <div class="bg-white/50 backdrop-blur rounded-lg shadow overflow-hidden">
-                <img src="{{ asset('images/aset infografis/Pekerjaan.png') }}" alt="Tabel Pekerjaan" class="w-full h-full object-contain">
-            </div>
-
-            <!-- Top Occupations Cards -->
-            <div class="md:col-span-2 grid md:grid-cols-2 gap-6">
-                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-                    <p class="text-lg text-gray-700 font-semibold mb-2">Pelajar/Mahasiswa</p>
-                    <p class="text-4xl font-bold text-gray-700">241</p>
-                </div>
-                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-                    <p class="text-lg text-gray-700 font-semibold mb-2">Belum/Tidak Bekerja</p>
-                    <p class="text-4xl font-bold text-gray-700">230</p>
-                </div>
-                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-                    <p class="text-lg text-gray-700 font-semibold mb-2">Mengurus Rumah Tangga</p>
-                    <p class="text-4xl font-bold text-gray-700">194</p>
-                </div>
-                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-                    <p class="text-lg text-gray-700 font-semibold mb-2">Petani/Pekebun</p>
-                    <p class="text-4xl font-bold text-gray-700">109</p>
-                </div>
-                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-                    <p class="text-lg text-gray-700 font-semibold mb-2">Wiraswasta</p>
-                    <p class="text-4xl font-bold text-gray-700">53</p>
-                </div>
-                <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-                    <p class="text-lg text-gray-700 font-semibold mb-2">Nelayan/Perikanan</p>
-                    <p class="text-4xl font-bold text-gray-700">34</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Marital Status Section - Berdasarkan Perkawinan -->
 <section class="bg-gray-100 py-12 px-8 md:px-12 lg:px-16">
