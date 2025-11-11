@@ -631,11 +631,6 @@ window.addEventListener('load', function() {
     <div class="container mx-auto max-w-7xl">
         <h4 class="text-4xl font-bold text-green-700 mb-6">Berdasarkan Pekerjaan</h4>
         
-        <div class="grid md:grid-cols-3 gap-6 items-stretch">
-            <div class="bg-white/50 backdrop-blur rounded-lg shadow overflow-hidden">
-                <img src="{{ asset('images/aset infografis/Pekerjaan.png') }}" alt="Tabel Pekerjaan" class="w-full h-full object-contain">
-            </div>
-
             <!-- Top Occupations Cards -->
             <div class="md:col-span-2 grid md:grid-cols-2 gap-6">
                 <div class="bg-white/50 backdrop-blur rounded-lg shadow p-8 text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
