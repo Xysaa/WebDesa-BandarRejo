@@ -3,103 +3,32 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\GaleriFotoController;
+use App\Http\Controllers\BansosController;
 
-// Rute Home
+
+// ========================
+// Rute Publik
+// ========================
 Route::view('/', 'home')->name('home');
 
-// Rute Login
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+// Login & Logout
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
-
-// Rute Logout
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Rute Dashboard (hanya untuk yang sudah login)
-Route::prefix('dashboard')->group(function () {
-    Route::get('/', fn() => view('dashboard.index'))->name('dashboard.index');
-    Route::get('/penduduk', fn() => view('dashboard.penduduk'))->name('dashboard.penduduk');
-    Route::get('/bansos', fn() => view('dashboard.bansos'))->name('dashboard.bansos');
-    Route::get('/berita', fn() => view('dashboard.berita'))->name('dashboard.berita');
-    Route::get('/galeri', fn() => view('dashboard.galeri'))->name('dashboard.galeri');
-    Route::get('/potensi', fn() => view('dashboard.potensi'))->name('dashboard.potensi');
-    Route::get('/stunting', fn() => view('dashboard.stunting'))->name('dashboard.stunting');
-    Route::get('/kepaladusun', fn() => view('dashboard.kadus'))->name('dashboard.kepaladusun');
-    Route::view('/feedback', 'dashboard.feedback')->name('dashboard.feedback');
-
-});
+// Halaman publik Berita
 Route::get('/berita', function () {
     return view('berita');
 });
 
 Route::get('/berita/{slug}', function ($slug) {
-    // Find the article using the slug from the dummy data
     $berita = [
-        [
-            'slug' => 'Berita1',
-            'image' => 'images/gambar1.png',
-            'title' => 'Survei Desa Bandar Rejo',
-            'description' => 'Mahasiswa ITERA melakukan survei di Desa Bandar Rejo.',
-            'isi'=>'Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id cursus mi pretium tellus duis convallis tempus leo eu aenean sed diam urna tempor pulvinar vivamus fringilla lacus nec metus bibendum egestas iaculis massa nisl malesuada lacinia integer nunc posuere ut hendrerit semper vel class aptent taciti sociosqu ad litora torquent per conubia nostra inceptos himenaeos orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus donec rhoncus eros lobortis nulla molestie mattis scelerisque maximus eget fermentum odio phasellus non purus est efficitur laoreet mauris pharetra vestibulum fusce dictum risus blandit quis suspendisse aliquet nisi sodales consequat magna ante condimentum neque at luctus nibh finibus facilisis dapibus etiam interdum tortor ligula congue sollicitudin erat viverra ac tincidunt nam porta elementum a enim euismod quam justo lectus commodo augue arcu dignissim velit aliquam imperdiet mollis nullam volutpat porttitor ullamcorper rutrum gravida.',
-            'author' => 'Sigit Kurnia',
-            'views' => 402,
-            'date' => '2025-06-23',
-        ],
-        [
-            'slug' => 'Berita2',
-            'image' => 'images/gambar2.png',
-            'title' => 'Survei Desa Bandar Rejo 2',
-            'description' => 'Mahasiswa ITERA melakukan survei di Desa Bandar Rejo.',
-            'isi'=>'Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id cursus mi pretium tellus duis convallis tempus leo eu aenean sed diam urna tempor pulvinar vivamus fringilla lacus nec metus bibendum egestas iaculis massa nisl malesuada lacinia integer nunc posuere ut hendrerit semper vel class aptent taciti sociosqu ad litora torquent per conubia nostra inceptos himenaeos orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus donec rhoncus eros lobortis nulla molestie mattis scelerisque maximus eget fermentum odio phasellus non purus est efficitur laoreet mauris pharetra vestibulum fusce dictum risus blandit quis suspendisse aliquet nisi sodales consequat magna ante condimentum neque at luctus nibh finibus facilisis dapibus etiam interdum tortor ligula congue sollicitudin erat viverra ac tincidunt nam porta elementum a enim euismod quam justo lectus commodo augue arcu dignissim velit aliquam imperdiet mollis nullam volutpat porttitor ullamcorper rutrum gravida.',
-            'author' => 'Sigit Kurnia',
-            'views' => 500,
-            'date' => '2025-06-24',
-        ],
-        [
-        'slug' => 'Berita3',
-        'image' => 'images/gambar3.png',
-        'title' => 'Survei Desa Bandar Rejo 3',
-        'description' => 'Mahasiswa ITERA melakukan survei di Desa Bandar Rejo.',
-        'isi'=>'Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id cursus mi pretium tellus duis convallis tempus leo eu aenean sed diam urna tempor pulvinar vivamus fringilla lacus nec metus bibendum egestas iaculis massa nisl malesuada lacinia integer nunc posuere ut hendrerit semper vel class aptent taciti sociosqu ad litora torquent per conubia nostra inceptos himenaeos orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus donec rhoncus eros lobortis nulla molestie mattis scelerisque maximus eget fermentum odio phasellus non purus est efficitur laoreet mauris pharetra vestibulum fusce dictum risus blandit quis suspendisse aliquet nisi sodales consequat magna ante condimentum neque at luctus nibh finibus facilisis dapibus etiam interdum tortor ligula congue sollicitudin erat viverra ac tincidunt nam porta elementum a enim euismod quam justo lectus commodo augue arcu dignissim velit aliquam imperdiet mollis nullam volutpat porttitor ullamcorper rutrum gravida.',
-        'author' => 'Sigit Kurnia',
-        'views' => 305,
-        'date' => '2025-06-25',
-      ],
-      [
-        'slug' => 'Berita4',
-        'image' => 'images/gambar4.png',
-        'title' => 'Survei Desa Bandar Rejo 4',
-        'description' => 'Mahasiswa ITERA melakukan survei di Desa Bandar Rejo.',
-        'isi'=>'Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id cursus mi pretium tellus duis convallis tempus leo eu aenean sed diam urna tempor pulvinar vivamus fringilla lacus nec metus bibendum egestas iaculis massa nisl malesuada lacinia integer nunc posuere ut hendrerit semper vel class aptent taciti sociosqu ad litora torquent per conubia nostra inceptos himenaeos orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus donec rhoncus eros lobortis nulla molestie mattis scelerisque maximus eget fermentum odio phasellus non purus est efficitur laoreet mauris pharetra vestibulum fusce dictum risus blandit quis suspendisse aliquet nisi sodales consequat magna ante condimentum neque at luctus nibh finibus facilisis dapibus etiam interdum tortor ligula congue sollicitudin erat viverra ac tincidunt nam porta elementum a enim euismod quam justo lectus commodo augue arcu dignissim velit aliquam imperdiet mollis nullam volutpat porttitor ullamcorper rutrum gravida.',
-        'author' => 'Sigit Kurnia',
-        'views' => 700,
-        'date' => '2025-06-26',
-      ],
-      [
-        'slug' => 'Berita5',
-        'image' => 'images/gambar5.png',
-        'title' => 'Survei Desa Bandar Rejo 5',
-        'description' => 'Mahasiswa ITERA melakukan survei di Desa Bandar Rejo.',
-        'isi'=>'Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id cursus mi pretium tellus duis convallis tempus leo eu aenean sed diam urna tempor pulvinar vivamus fringilla lacus nec metus bibendum egestas iaculis massa nisl malesuada lacinia integer nunc posuere ut hendrerit semper vel class aptent taciti sociosqu ad litora torquent per conubia nostra inceptos himenaeos orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus donec rhoncus eros lobortis nulla molestie mattis scelerisque maximus eget fermentum odio phasellus non purus est efficitur laoreet mauris pharetra vestibulum fusce dictum risus blandit quis suspendisse aliquet nisi sodales consequat magna ante condimentum neque at luctus nibh finibus facilisis dapibus etiam interdum tortor ligula congue sollicitudin erat viverra ac tincidunt nam porta elementum a enim euismod quam justo lectus commodo augue arcu dignissim velit aliquam imperdiet mollis nullam volutpat porttitor ullamcorper rutrum gravida.',
-        'author' => 'Sigit Kurnia',
-        'views' => 450,
-        'date' => '2025-06-27',
-      ],
-      [
-        'slug' => 'Berita6',
-        'image' => 'images/gambar6.png',
-        'title' => 'Survei Desa Bandar Rejo 6',
-        'description' => 'Mahasiswa ITERA melakukan survei di Desa Bandar Rejo.',
-        'isi'=>'Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id cursus mi pretium tellus duis convallis tempus leo eu aenean sed diam urna tempor pulvinar vivamus fringilla lacus nec metus bibendum egestas iaculis massa nisl malesuada lacinia integer nunc posuere ut hendrerit semper vel class aptent taciti sociosqu ad litora torquent per conubia nostra inceptos himenaeos orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus donec rhoncus eros lobortis nulla molestie mattis scelerisque maximus eget fermentum odio phasellus non purus est efficitur laoreet mauris pharetra vestibulum fusce dictum risus blandit quis suspendisse aliquet nisi sodales consequat magna ante condimentum neque at luctus nibh finibus facilisis dapibus etiam interdum tortor ligula congue sollicitudin erat viverra ac tincidunt nam porta elementum a enim euismod quam justo lectus commodo augue arcu dignissim velit aliquam imperdiet mollis nullam volutpat porttitor ullamcorper rutrum gravida.',
-        'author' => 'Sigit Kurnia',
-        'views' => 600,
-        'date' => '2025-06-28',
-      ],
+        // ... (isi array berita kamu, biarkan seperti semula)
     ];
 
-
-    // Find the article by slug
     $artikel = collect($berita)->firstWhere('slug', $slug);
-
     if (!$artikel) {
         abort(404, 'Artikel tidak ditemukan');
     }
@@ -107,9 +36,79 @@ Route::get('/berita/{slug}', function ($slug) {
     return view('detail', compact('artikel','berita'));
 });
 
-Route::get('/infografis', function () {
-    return view('infografis');
-});
-Route::get('/profil-desa', function () {
-    return view('profil');
-});
+Route::get('/infografis', fn() => view('infografis'));
+Route::get('/profil-desa', fn() => view('profil'));
+
+// ========================
+// Endpoint publik untuk form feedback
+// ========================
+Route::post('/feedback', [FeedbackController::class, 'store'])
+    ->middleware('throttle:feedback-store')
+    ->name('feedback.store.public');
+
+// ========================
+// Halaman publik Galeri Foto
+// ========================
+Route::get('/galeri', [GaleriFotoController::class, 'publicIndex'])->name('galeri.index');
+Route::get('/galeri/{galeri_foto}', [GaleriFotoController::class, 'publicShow'])->name('galeri.show');
+
+// ========================
+// Rute Dashboard
+// ========================
+Route::prefix('dashboard')
+    // ->middleware('auth')
+    ->group(function () {
+
+        // Halaman statis dashboard yang sudah ada
+        Route::get('/', fn() => view('dashboard.index'))->name('dashboard.index');
+        Route::get('/penduduk', fn() => view('dashboard.penduduk'))->name('dashboard.penduduk');
+
+        // ========================
+        // Bansos (RESOURCE)
+        // ========================
+        // custom names supaya:
+        //  - index  => 'dashboard.bansos'   (bukan 'dashboard.bansos.index')
+        //  - lainnya => dashboard.bansos.create|store|show|edit|update|destroy
+
+        Route::resource('bansos', BansosController::class)
+    ->names([
+        'index'   => 'dashboard.bansos.index',
+        'create'  => 'dashboard.bansos.create',
+        'store'   => 'dashboard.bansos.store',
+        'show'    => 'dashboard.bansos.show',
+        'edit'    => 'dashboard.bansos.edit',
+        'update'  => 'dashboard.bansos.update',
+        'destroy' => 'dashboard.bansos.destroy',
+    ])
+    // 👇 ini kunci-nya: paksa nama parameter jadi {bansos}
+    ->parameters([
+        'bansos' => 'bansos',
+    ]);
+
+        // Alias ekstra: /dashboard/bansos/{bansos}/detail
+        Route::get('bansos/{bansos}/detail', [BansosController::class, 'detail'])
+            ->name('dashboard.bansos.detail');
+
+        Route::get('/berita', fn() => view('dashboard.berita'))->name('dashboard.berita');
+
+        // ========================
+        // Galeri Foto (RESOURCE)
+        // ========================
+        Route::resource('galeri-foto', GaleriFotoController::class)
+            ->names('dashboard.galeri-foto');
+        Route::get('galeri-foto/{galeri_foto}/detail', [GaleriFotoController::class, 'detail'])
+            ->name('dashboard.galeri-foto.detail');
+
+        Route::get('/potensi', fn() => view('dashboard.potensi'))->name('dashboard.potensi');
+        Route::get('/stunting', fn() => view('dashboard.stunting'))->name('dashboard.stunting');
+        Route::get('/kepaladusun', fn() => view('dashboard.kadus'))->name('dashboard.kepaladusun');
+
+        // ========================
+        // Feedback (RESOURCE)
+        // ========================
+        Route::resource('feedback', FeedbackController::class)
+            ->names('dashboard.feedback');
+
+        Route::get('feedback/{feedback}/detail', [FeedbackController::class, 'detail'])
+            ->name('dashboard.feedback.detail');
+    });
