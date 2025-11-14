@@ -11,11 +11,11 @@ use Illuminate\Support\Str;
 
 class GaleriFotoController extends Controller
 {
-    public function __construct()
-    {
-        // contoh: batasi create/store/update/destroy ke user login
-        $this->middleware('auth')->except(['publicIndex','publicShow']);
-    }
+    // public function __construct()
+    // {
+    //     // contoh: batasi create/store/update/destroy ke user login
+    //     $this->middleware('auth')->except(['publicIndex','publicShow']);
+    // }
 
     /**
      * GET /dashboard/galeri-foto
@@ -27,18 +27,19 @@ class GaleriFotoController extends Controller
         $items = GaleriFoto::query()
             ->when($q, fn($query) =>
                 $query->where('judul','like',"%{$q}%")
-                      ->orWhere('tanggal','like',"%{$q}%")
+                    ->orWhere('tanggal','like',"%{$q}%")
             )
             ->orderByDesc('tanggal')
             ->orderByDesc('id')
             ->paginate(12)
             ->withQueryString();
 
-        return view('dashboard.galeri_foto.index', [
+        return view('dashboard.galeri', [
             'items' => $items,
             'q' => $q,
         ]);
     }
+
 
     /**
      * GET /dashboard/galeri-foto/create
@@ -77,26 +78,63 @@ class GaleriFotoController extends Controller
     /**
      * GET /dashboard/galeri-foto/{galeri_foto}
      */
-    public function show(GaleriFoto $galeri_foto)
-    {
-        return view('dashboard.galeri_foto.show', ['item' => $galeri_foto]);
-    }
+public function show(Request $request, GaleriFoto $galeri_foto)
+{
+    $q = $request->input('q');
+
+    $items = GaleriFoto::query()
+        ->when($q, fn($query) =>
+            $query->where('judul','like',"%{$q}%")
+                  ->orWhere('tanggal','like',"%{$q}%")
+        )
+        ->orderByDesc('tanggal')
+        ->orderByDesc('id')
+        ->paginate(12)
+        ->withQueryString();
+
+    return view('dashboard.galeri', [
+        'items'    => $items,
+        'q'        => $q,
+        'showItem' => $galeri_foto,
+    ]);
+}
+
 
     /**
      * Alias "detail" (opsional)
      */
-    public function detail(GaleriFoto $galeri_foto)
+    public function detail(Request $request, GaleriFoto $galeri_foto)
     {
-        return $this->show($galeri_foto);
+        // alias ke show, supaya /dashboard/galeri-foto/{id}/detail juga bisa dipakai
+        return $this->show($request, $galeri_foto);
     }
+
 
     /**
      * GET /dashboard/galeri-foto/{galeri_foto}/edit
      */
-    public function edit(GaleriFoto $galeri_foto)
+    public function edit(Request $request, GaleriFoto $galeri_foto)
     {
-        return view('dashboard.galeri_foto.edit', ['item' => $galeri_foto]);
+        $q = $request->input('q');
+
+        $items = GaleriFoto::query()
+            ->when($q, fn($query) =>
+                $query->where('judul','like',"%{$q}%")
+                    ->orWhere('tanggal','like',"%{$q}%")
+            )
+            ->orderByDesc('tanggal')
+            ->orderByDesc('id')
+            ->paginate(12)
+            ->withQueryString();
+
+        return view('dashboard.galeri', [
+            'items'    => $items,
+            'q'        => $q,
+            'editItem' => $galeri_foto,
+        ]);
     }
+
+
 
     /**
      * PUT/PATCH /dashboard/galeri-foto/{galeri_foto}
@@ -141,6 +179,8 @@ class GaleriFotoController extends Controller
             ->route('dashboard.galeri-foto.index')
             ->with('success', 'Foto berhasil dihapus.');
     }
+
+    
 
     /**
      * (Opsional) Halaman publik daftar & detail

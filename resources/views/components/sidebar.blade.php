@@ -14,13 +14,13 @@
         <a href="{{ route('dashboard.stunting') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.stunting') ? 'bg-[#256952] font-semibold' : '' }}">
             <i class="fas fa-child mr-2"></i> Data Stunting
         </a>
-        <a href="{{ route('dashboard.bansos') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.bansos') ? 'bg-[#256952] font-semibold' : '' }}">
+        <a href="{{ route('dashboard.bansos.index') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.bansos') ? 'bg-[#256952] font-semibold' : '' }}">
             <i class="fas fa-hand-holding-usd mr-2"></i> Data Bansos
         </a>
         <a href="{{ route('dashboard.berita') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.berita') ? 'bg-[#256952] font-semibold' : '' }}">
             <i class="fas fa-newspaper mr-2"></i> Berita Desa
         </a>
-        <a href="{{ route('dashboard.galeri') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.galeri') ? 'bg-[#256952] font-semibold' : '' }}">
+        <a href="{{ route('dashboard.galeri-foto.index') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.galeri') ? 'bg-[#256952] font-semibold' : '' }}">
             <i class="fas fa-images mr-2"></i> Galeri Foto
         </a>
         <a href="{{ route('dashboard.potensi') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.potensi') ? 'bg-[#256952] font-semibold' : '' }}">
