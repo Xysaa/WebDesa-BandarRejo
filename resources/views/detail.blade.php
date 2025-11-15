@@ -115,6 +115,10 @@
 
 {{-- Styling tetap sama --}}
 <style>
+/* CSS View Transition API untuk smooth page navigation */
+@view-transition {
+  navigation: auto;
+}
 @media (prefers-reduced-motion: reduce) {
   .anim, .sidebar-anim, .hero-anim {
     animation: none !important;
@@ -122,6 +126,10 @@
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
+  }
+
+  @view-transition {
+    navigation: none;
   }
 }
 
@@ -133,72 +141,59 @@
 @keyframes fadeUp {
   0% {
     opacity: 0;
-    transform: translateY(6px);
-    filter: blur(0.5px);
-  }
-  60% {
-    opacity: 0.8;
-    filter: blur(0px);
+    transform: translateY(12px);
   }
   100% {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
 @keyframes fadeRight {
   0% {
     opacity: 0;
-    transform: translateX(8px);
-    filter: blur(0.5px);
-  }
-  60% {
-    opacity: 0.8;
-    filter: blur(0px);
+    transform: translateX(16px);
   }
   100% {
     opacity: 1;
     transform: translateX(0);
-    filter: blur(0);
   }
 }
 
 @keyframes revealScale {
   0% {
     opacity: 0;
-    transform: scale(0.99);
-    filter: blur(0.5px);
-  }
-  60% {
-    opacity: 0.9;
-    filter: blur(0px);
+    transform: scale(0.97);
   }
   100% {
     opacity: 1;
     transform: scale(1);
-    filter: blur(0);
   }
 }
-
 .anim {
-  animation: fadeUp 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fadeUp 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--d, 0ms);
 }
 
 .sidebar-anim {
-  animation: fadeRight 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fadeRight 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--d, 0ms);
 }
 
 .hero-anim {
-  animation: revealScale 750ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: revealScale 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: 240ms;
 }
 
 .anim, .sidebar-anim, .hero-anim {
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
 }
 
 .prose {
@@ -208,6 +203,33 @@
 @media (max-width: 640px) {
   .prose p, .prose li {
     line-height: 1.6;
+  }
+}
+
+/* Custom View Transition untuk animasi yang lebih halus */
+::view-transition-old(root) {
+  animation: fadeOut 400ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: fadeIn 600ms cubic-bezier(0, 0, 0.2, 1) both;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>

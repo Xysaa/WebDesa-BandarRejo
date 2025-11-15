@@ -2,7 +2,7 @@
 @section('title', 'Berita Desa')
 
 @section('content')
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-10 font-poppins opacity-0 -translate-y-10 transition-all duration-1000 ease-in-out" id="berita-container">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-10 font-poppins" id="berita-container">
   <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-700 mb-2 sm:mb-3">Berita Desa</h2>
   <p class="text-base sm:text-lg text-black mb-6 sm:mb-8">
     Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa Bandar Rejo
@@ -21,6 +21,7 @@
       <!-- Kartu Berita -->
       <a href="{{ route('berita.show', $item->slug) }}"
          class="relative bg-white rounded-xl shadow-md overflow-hidden ring-1 ring-slate-100 transition-transform duration-300 ease-out will-change-transform hover:shadow-lg md:hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-emerald-500/50">
+
         <!-- Gambar adaptif -->
         @if($item->image)
           <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
@@ -75,14 +76,19 @@
 
 <script>
   // Animasi masuk halus
-  window.addEventListener("load", function() {
-    const beritaContainer = document.getElementById("berita-container");
-    beritaContainer.classList.remove("opacity-0", "-translate-y-10");
-    beritaContainer.classList.add("opacity-100", "translate-y-0");
+  document.addEventListener("DOMContentLoaded", function() {
+    const beritaItems = document.querySelectorAll(".berita-item");
+
+    // Memberikan delay agar setiap berita muncul satu per satu
+    beritaItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.classList.add("show");
+      }, index * 150);
+    });
   });
 </script>
 
-{{-- CSS untuk memastikan responsif --}}
+{{-- CSS untuk memastikan responsif dan item baris terakhir di tengah --}}
 <style>
   /* Deskripsi ringkas 2 baris */
   .desc-clamp {
@@ -105,17 +111,106 @@
   /* Kartu berita responsive */
   .grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* Grid dengan 6 kolom (visual 3 kolom) - TEKNIK CENTERING LAST ROW */
+  .berita-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1.25rem;
   }
 
-  @media (max-width: 640px) {
+  /* Setiap item mengambil 2 kolom (6/2 = 3 item per baris) */
+  .berita-item {
+    grid-column: span 2;
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: center center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  /* State awal sebelum animasi */
+  .berita-item:not(.show) {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  /* Setelah animasi selesai */
+  .berita-item.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* CENTERING UNTUK 3 KOLOM LAYOUT */
+  /* Jika item terakhir adalah item ke-1, 4, 7, 10... (sisa 1 item) */
+  .berita-item:last-child:nth-child(3n + 1) {
+    grid-column-end: 5; /* Mulai dari kolom 3, berakhir di kolom 5 (tengah) */
+  }
+
+  /* Jika ada 2 item di baris terakhir */
+  /* Item kedua dari belakang yang ke-1, 4, 7, 10... */
+  .berita-item:nth-last-child(2):nth-child(3n + 1) {
+    grid-column-end: 4; /* Berakhir di kolom 4 */
+  }
+
+  /* Responsive breakpoints */
+  @media (min-width: 640px) {
+    .berita-grid {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .berita-grid {
+      gap: 2rem;
+    }
+  }
+
+  /* Responsive untuk mobile: 1 kolom */
+  @media (max-width: 639px) {
+    .berita-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .berita-item {
+      grid-column: span 1;
+    }
+
+    /* Reset centering untuk mobile */
+    .berita-item:last-child:nth-child(3n + 1),
+    .berita-item:nth-last-child(2):nth-child(3n + 1) {
+      grid-column-end: auto;
+    }
+
     .title-clamp { -webkit-line-clamp: unset; }
   }
 
-  @media (min-width: 641px) and (max-width: 1024px) {
+  /* Responsive untuk tablet: 2 kolom */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .berita-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .berita-item {
+      grid-column: span 2;
+    }
+
+    /* Reset centering untuk 3 kolom */
+    .berita-item:last-child:nth-child(3n + 1),
+    .berita-item:nth-last-child(2):nth-child(3n + 1) {
+      grid-column-end: auto;
+    }
+
+    /* Centering untuk 2 kolom layout */
+    /* Jika item terakhir adalah item ganjil (sisa 1 item) */
+    .berita-item:last-child:nth-child(2n + 1) {
+      grid-column-end: 4; /* Tengah untuk 2 kolom */
+    }
+
     .title-clamp { -webkit-line-clamp: unset; }
   }
 
-  @media (min-width: 1025px) {
+  @media (min-width: 1024px) {
     .title-clamp { -webkit-line-clamp: unset; }
   }
 </style>

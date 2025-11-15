@@ -403,31 +403,78 @@ document.addEventListener('DOMContentLoaded', function() {
     <p class="text-sm md:text-base text-black/80 mb-6 text-center">
       Kami sangat menghargai masukan Anda untuk meningkatkan pelayanan dan kualitas website Desa Bandar Rejo. Silakan tinggalkan kritik, saran, atau pesan Anda di bawah ini.
     </p>
-    <form method="POST" action="{{ url('/feedback') }}" class="bg-white rounded-lg shadow-md p-6 space-y-4">
+
+    {{-- Alert sukses (opsional, tampilkan jika halaman sama menangkap session) --}}
+    @if(session('success'))
+      <div class="mb-4 rounded border border-green-200 bg-green-50 px-4 py-3 text-green-700 text-center">
+        {{ session('success') }}
+      </div>
+    @endif
+
+    {{-- Error validation --}}
+    @if ($errors->any())
+      <div class="mb-4 rounded border border-red-200 bg-red-50 px-4 py-3 text-red-700">
+        <ul class="list-disc list-inside text-sm">
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
+    {{-- Arahkan ke method store dari resource: dashboard.feedback.store --}}
+    <form method="POST" action="{{ route('dashboard.feedback.store') }}" class="bg-white rounded-lg shadow-md p-6 space-y-4">
       @csrf
+
+      {{-- kolom 'tanggal' wajib di rules -> kirim otomatis hari ini --}}
+      <input type="hidden" name="tanggal" value="{{ now()->toDateString() }}">
+
       <div>
         <label for="nama" class="block text-sm font-semibold text-gray-700 mb-1">Nama</label>
-        <input type="text" id="nama" name="nama" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2C7961]" placeholder="Nama Anda (opsional)">
+        <input
+          type="text"
+          id="nama"
+          name="nama"
+          value="{{ old('nama') }}"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2C7961]"
+          placeholder="Nama Anda (opsional)">
       </div>
+
       <div>
         <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">Email</label>
-        <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2C7961]" placeholder="Email Anda (opsional)">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value="{{ old('email') }}"
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2C7961]"
+          placeholder="Email Anda (opsional)">
       </div>
+
       <div>
-        <label for="pesan" class="block text-sm font-semibold text-gray-700 mb-1">Pesan / Saran</label>
-        <textarea id="pesan" name="pesan" rows="4" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2C7961]" placeholder="Tulis kritik, saran, atau pesan Anda di sini..."></textarea>
+        <label for="pesan" class="block text-sm font-semibold text-gray-700 mb-1">Pesan / Saran <span class="text-red-600">*</span></label>
+        <textarea
+          id="pesan"
+          name="pesan"
+          rows="4"
+          required
+          class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2C7961]"
+          placeholder="Tulis kritik, saran, atau pesan Anda di sini...">{{ old('pesan') }}</textarea>
       </div>
+
       <div class="flex justify-end">
         <button type="submit" class="bg-[#2C7961] hover:bg-[#256952] text-white font-semibold px-6 py-2 rounded-md transition">
           Kirim Feedback
         </button>
       </div>
     </form>
+
     <p class="text-xs text-gray-500 mt-3 text-center">
       Data Anda akan dijaga kerahasiaannya. Terima kasih atas partisipasi Anda!
     </p>
   </div>
 </section>
+
 
 
 @endsection
