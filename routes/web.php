@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PotensiDesaController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GaleriFotoController;
 use App\Http\Controllers\BansosController;
@@ -17,60 +19,11 @@ Route::view('/', 'home')->name('home');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
-// Halaman publik Berita
-Route::get('/berita', function () {
-    return view('berita');
-});
-
-Route::get('/berita/{slug}', function ($slug) {
-    $berita = [
-        // ... (isi array berita kamu, biarkan seperti semula)
-    ];
-
-    $artikel = collect($berita)->firstWhere('slug', $slug);
-    if (!$artikel) {
-        abort(404, 'Artikel tidak ditemukan');
-    }
-
-    return view('detail', compact('artikel','berita'));
-});
-
-Route::get('/infografis', fn() => view('infografis'));
-Route::get('/profil-desa', fn() => view('profil'));
-
-// ========================
-// Endpoint publik untuk form feedback
-// ========================
-Route::post('/feedback', [FeedbackController::class, 'store'])
-    ->middleware('throttle:feedback-store')
-    ->name('feedback.store.public');
-
-// ========================
-// Halaman publik Galeri Foto
-// ========================
-Route::get('/galeri', [GaleriFotoController::class, 'publicIndex'])->name('galeri.index');
-Route::get('/galeri/{galeri_foto}', [GaleriFotoController::class, 'publicShow'])->name('galeri.show');
-
-// ========================
-// Rute Dashboard
-// ========================
-Route::prefix('dashboard')
-    // ->middleware('auth')
-    ->group(function () {
-
-        // Halaman statis dashboard yang sudah ada
-        Route::get('/', fn() => view('dashboard.index'))->name('dashboard.index');
-        Route::get('/penduduk', fn() => view('dashboard.penduduk'))->name('dashboard.penduduk');
-
-        // ========================
-        // Bansos (RESOURCE)
-        // ========================
-        // custom names supaya:
-        //  - index  => 'dashboard.bansos'   (bukan 'dashboard.bansos.index')
-        //  - lainnya => dashboard.bansos.create|store|show|edit|update|destroy
-
-        Route::resource('bansos', BansosController::class)
+// Rute Dashboard (hanya untuk yang sudah login)
+Route::prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::get('/', fn() => view('dashboard.index'))->name('index');
+    Route::get('/penduduk', fn() => view('dashboard.penduduk'))->name('penduduk');
+     Route::resource('bansos', BansosController::class)
     ->names([
         'index'   => 'dashboard.bansos.index',
         'create'  => 'dashboard.bansos.create',
@@ -89,26 +42,35 @@ Route::prefix('dashboard')
         Route::get('bansos/{bansos}/detail', [BansosController::class, 'detail'])
             ->name('dashboard.bansos.detail');
 
-        Route::get('/berita', fn() => view('dashboard.berita'))->name('dashboard.berita');
+    // Resource routes
+    Route::resource('berita', BeritaController::class)->except(['show']);
+    Route::resource('potensi', PotensiDesaController::class)->except(['show']);
+    
+    Route::resource('galeri-foto', GaleriFotoController::class)->names('dashboard.galeri-foto');
+    Route::get('galeri-foto/{galeri_foto}/detail', [GaleriFotoController::class, 'detail'])->name('dashboard.galeri-foto.detail');
+    Route::get('/stunting', fn() => view('dashboard.stunting'))->name('stunting');
+    Route::get('/kepaladusun', fn() => view('dashboard.kadus'))->name('kepaladusun');
+    Route::resource('feedback', FeedbackController::class)->names('dashboard.feedback');
+    Route::get('feedback/{feedback}/detail', [FeedbackController::class, 'detail'])->name('dashboard.feedback.detail');
+});
 
-        // ========================
-        // Galeri Foto (RESOURCE)
-        // ========================
-        Route::resource('galeri-foto', GaleriFotoController::class)
-            ->names('dashboard.galeri-foto');
-        Route::get('galeri-foto/{galeri_foto}/detail', [GaleriFotoController::class, 'detail'])
-            ->name('dashboard.galeri-foto.detail');
+// Rute Public Berita
+// Rute Public Berita (taruh sebelum route {slug} agar tidak konflik)
+Route::get('/berita', [BeritaController::class, 'indexPublic'])->name('berita.public');
+Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
-        Route::get('/potensi', fn() => view('dashboard.potensi'))->name('dashboard.potensi');
-        Route::get('/stunting', fn() => view('dashboard.stunting'))->name('dashboard.stunting');
-        Route::get('/kepaladusun', fn() => view('dashboard.kadus'))->name('dashboard.kepaladusun');
 
-        // ========================
-        // Feedback (RESOURCE)
-        // ========================
-        Route::resource('feedback', FeedbackController::class)
-            ->names('dashboard.feedback');
+Route::get('/infografis', function () {
+    return view('infografis');
+});
 
-        Route::get('feedback/{feedback}/detail', [FeedbackController::class, 'detail'])
-            ->name('dashboard.feedback.detail');
-    });
+Route::get('/profil-desa', function () {
+    return view('profil');
+});
+Route::get('/potensi-desa', [PotensiDesaController::class, 'index'])->name('potensi-desa.public');
+Route::get('/potensi-desa/{potensiDesa}', [PotensiDesaController::class, 'show'])->name('potensi-desa.show');
+Route::post('/feedback', [FeedbackController::class, 'store'])
+    ->middleware('throttle:feedback-store')
+    ->name('feedback.store.public');
+Route::get('/galeri', [GaleriFotoController::class, 'publicIndex'])->name('galeri.index');
+Route::get('/galeri/{galeri_foto}', [GaleriFotoController::class, 'publicShow'])->name('galeri.show');
