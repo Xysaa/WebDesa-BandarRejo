@@ -57,9 +57,6 @@
     @empty
         <div class="col-span-2 text-center py-8">
             <p class="text-gray-600 mb-4">Belum ada potensi desa yang ditambahkan.</p>
-            <a href="{{ route('dashboard.potensi.create') }}" class="bg-[#2C7961] hover:bg-[#256952] text-white px-4 py-2 rounded-lg font-semibold transition inline-block">
-                <i class="fas fa-plus mr-2"></i> Tambah Potensi Pertama
-            </a>
         </div>
     @endforelse
 </div>

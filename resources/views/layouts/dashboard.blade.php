@@ -32,5 +32,25 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Cari semua tombol trigger dropdown di sidebar
+            const triggers = document.querySelectorAll('[data-dropdown-trigger]');
+    
+            triggers.forEach(trigger => {
+                const contentName = trigger.dataset.dropdownTrigger;
+                const content = document.querySelector(`[data-dropdown-content="${contentName}"]`);
+                const icon = trigger.querySelector(`[data-dropdown-icon="${contentName}"]`);
+    
+                trigger.addEventListener('click', function () {
+                    // Toggle (buka/tutup) menu
+                    content.classList.toggle('hidden');
+                    
+                    // Putar ikon panah
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

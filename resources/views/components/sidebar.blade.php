@@ -4,13 +4,51 @@
         <div class="font-bold text-xl mb-1">Desa Bandar Rejo</div>
         <div class="text-sm text-white/70">Dasbor Admin</div>
     </div>
+    
     <nav class="flex-1 p-4 space-y-2">
         <a href="{{ route('dashboard.index') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.index') ? 'bg-[#256952] font-semibold' : '' }}">
             <i class="fas fa-home mr-2"></i> Dashboard
         </a>
-        <a href="{{ route('dashboard.penduduk') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.penduduk') ? 'bg-[#256952] font-semibold' : '' }}">
-            <i class="fas fa-users mr-2"></i> Data Kependudukan
-        </a>
+
+        <div>
+            <button type="button" class="w-full flex items-center justify-between px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 text-left {{ request()->routeIs('dashboard.penduduk*') ? 'bg-[#256952] font-semibold' : '' }}" data-dropdown-trigger="penduduk">
+                <span>
+                    <i class="fas fa-users mr-2"></i> Data Kependudukan
+                </span>
+                <i class="fas fa-chevron-down transform transition-transform duration-200 {{ request()->routeIs('dashboard.penduduk*') ? 'rotate-180' : '' }}" data-dropdown-icon="penduduk"></i>
+            </button>
+            
+            <div class="mt-1 space-y-1 pl-6 {{ request()->routeIs('dashboard.penduduk*') ? '' : 'hidden' }}" data-dropdown-content="penduduk">
+                
+                <a href="{{ route('dashboard.penduduk') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.penduduk') ? 'bg-[#256952] font-semibold' : '' }}">
+                    Ringkasan Kependudukan
+                </a>
+                
+                <a href="{{ route('dashboard.penduduk.pendidikan') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.penduduk.pendidikan') ? 'bg-[#256952] font-semibold' : '' }}">
+                    Data Pendidikan
+                </a>
+
+                <a href="{{ route('dashboard.penduduk.pekerjaan') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.penduduk.pekerjaan') ? 'bg-[#256952] font-semibold' : '' }}">
+                    Data Pekerjaan
+                </a>
+
+                <a href="{{ route('dashboard.penduduk.umur') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.penduduk.umur') ? 'bg-[#256952] font-semibold' : '' }}">
+                    Data Kelompok Umur
+                </a>
+
+                <a href="{{ route('dashboard.penduduk.agama') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.penduduk.agama') ? 'bg-[#256952] font-semibold' : '' }}">
+                    Data Agama
+                </a>
+
+                <a href="{{ route('dashboard.penduduk.perkawinan') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.penduduk.perkawinan') ? 'bg-[#256952] font-semibold' : '' }}">
+                    Data Perkawinan
+                </a>
+
+                <a href="{{ route('dashboard.penduduk.dusun') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.penduduk.dusun') ? 'bg-[#256952] font-semibold' : '' }}">
+                    Data Per Dusun
+                </a>
+            </div>
+        </div>
         <a href="{{ route('dashboard.stunting') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.stunting') ? 'bg-[#256952] font-semibold' : '' }}">
             <i class="fas fa-child mr-2"></i> Data Stunting
         </a>

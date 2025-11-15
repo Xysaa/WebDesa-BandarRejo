@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', function() {
     @endif
 
     {{-- Arahkan ke method store dari resource: dashboard.feedback.store --}}
-    <form method="POST" action="{{ route('dashboard.feedback.store') }}" class="bg-white rounded-lg shadow-md p-6 space-y-4">
+    <form method="POST" action="{{ route('feedback.store.public') }}" class="bg-white rounded-lg shadow-md p-6 space-y-4">
       @csrf
 
       {{-- kolom 'tanggal' wajib di rules -> kirim otomatis hari ini --}}

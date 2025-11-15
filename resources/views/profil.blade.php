@@ -99,7 +99,8 @@
                         <p><span class="font-medium">Jumlah Penduduk (BPS):</span> 3.154 Jiwa</p>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden"
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31786.158225657124!2d105.26312028848467!3d-5.220248346599821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40c713ab488f55%3A0xf6dc504899f954ee!2sBandar%20Rejo%2C%20Kec.%20Natar%2C%20Kabupaten%20Lampung%20Selatan%2C%20Lampung!5e0!3m2!1sid!2sid!4v1761722726153!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         {{-- Google Maps embed menggunakan koordinat desa (lat, lng) --}}
                         {{-- Koordinat yang digunakan: -5.229, 105.282 (contoh dari sumber wiki) --}}
                         <iframe
