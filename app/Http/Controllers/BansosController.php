@@ -15,7 +15,7 @@ class BansosController extends Controller
         $items = Bansos::query()
             ->when($q, function ($query) use ($q) {
                 $query->where('jenis_bansos', 'like', "%{$q}%")
-                      ->orWhere('satuan', 'like', "%{$q}%");
+                    ->orWhere('satuan', 'like', "%{$q}%");
             })
             ->orderBy('jenis_bansos')
             ->orderBy('id', 'desc')

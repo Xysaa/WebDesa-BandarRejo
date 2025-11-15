@@ -55,7 +55,8 @@
                 </div>
             </div>
             
-            <div class="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition">
+            {{-- Make Edit and Delete buttons always visible --}}
+            <div class="absolute top-2 right-2 flex gap-2 opacity-100 transition">
                 <a href="{{ route('dashboard.berita.edit', $berita->id) }}" class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded text-sm font-semibold">
                     <i class="fas fa-edit mr-1"></i> Edit
                 </a>
@@ -72,7 +73,6 @@
         <div class="text-center py-8">
             <i class="fas fa-newspaper text-gray-300 text-6xl mb-4"></i>
             <p class="text-gray-600 mb-4">Belum ada berita yang dipublikasikan.</p>
-            
         </div>
     @endforelse
 </div>
