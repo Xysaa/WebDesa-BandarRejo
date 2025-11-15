@@ -145,8 +145,8 @@
         @endif
 
         <div class="flex gap-2 mt-2">
-          <a href="{{ route('dashboard.galeri-foto.edit', $showItem) }}"
-             class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded text-sm font-semibold">
+          <a href="{{ route('dashboard.galeri-foto.edit', $showItem) }}
+             " class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded text-sm font-semibold">
             <i class="fas fa-edit mr-1"></i> Edit
           </a>
           <form method="POST" action="{{ route('dashboard.galeri-foto.destroy', $showItem) }}"
@@ -171,24 +171,28 @@
 @if($items->count())
   <div id="galeriGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
     @foreach($items as $it)
-      <div class="bg-white rounded-lg shadow p-2 group relative">
+      <div class="bg-white rounded-lg shadow p-2 relative">
         @php
           $img = $it->gambar_path ? asset('storage/'.$it->gambar_path) : asset('images/placeholder.png');
           $tgl = \Illuminate\Support\Carbon::parse($it->tanggal)->format('d M Y');
         @endphp
+
         <img src="{{ $img }}" alt="{{ $it->judul }}" class="rounded-lg w-full h-48 object-cover mb-2">
         <div class="font-semibold text-gray-800">{{ $it->judul }}</div>
         <div class="text-gray-500 text-sm">{{ $tgl }}</div>
 
-        <div class="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition">
-          {{-- Detail: panggil show(), tapi view-nya tetap dashboard.galeri --}}
+        {{-- tombol selalu terlihat --}}
+        <div class="absolute top-2 right-2 flex gap-2">
+          {{-- Detail --}}
           <a href="{{ route('dashboard.galeri-foto.show', $it) }}"
-             class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs font-semibold" title="Detail">
+             class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs font-semibold"
+             title="Detail">
             <i class="fas fa-eye"></i>
           </a>
-          {{-- Edit: panggil edit(), view sama --}}
+          {{-- Edit --}}
           <a href="{{ route('dashboard.galeri-foto.edit', $it) }}"
-             class="bg-yellow-400 hover:bg-yellow-500 text-white px-2 py-1 rounded text-xs font-semibold" title="Edit">
+             class="bg-yellow-400 hover:bg-yellow-500 text-white px-2 py-1 rounded text-xs font-semibold"
+             title="Edit">
             <i class="fas fa-edit"></i>
           </a>
           {{-- Hapus --}}
@@ -196,7 +200,8 @@
                 onsubmit="return confirm('Hapus foto ini?')">
             @csrf
             @method('DELETE')
-            <button class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold" title="Hapus">
+            <button class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold"
+                    title="Hapus">
               <i class="fas fa-trash"></i>
             </button>
           </form>
@@ -221,6 +226,7 @@
       window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
     }
   };
+
   function tutupForm() {
     document.getElementById('formTambahFoto').classList.add('hidden');
     const form = document.querySelector('#formTambahFoto form');
