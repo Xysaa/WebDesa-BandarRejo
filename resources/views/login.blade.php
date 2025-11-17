@@ -3,11 +3,18 @@
 @section('content')
 <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
     <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Login Admin Desa</h2>
+    @if ($errors->any())
+    <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-sm">
+        {{ $errors->first() }}
+    </div>
+    @endif
+
     @if(session('error'))
-        <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">
+        <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-sm">
             {{ session('error') }}
         </div>
     @endif
+
     <form method="POST" action="{{ route('login.attempt') }}">
         @csrf
         <div class="mb-4">
