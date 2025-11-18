@@ -31,17 +31,26 @@
                 <label for="nama_dusun" class="block text-gray-700 font-semibold mb-2">
                     Nama Dusun <span class="text-red-500">*</span>
                 </label>
-                <input type="text" 
-                       id="nama_dusun" 
-                       name="nama_dusun" 
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2C7961] focus:border-transparent @error('nama_dusun') border-red-500 @enderror" 
-                       placeholder="Contoh: Dusun Mawar" 
-                       value="{{ old('nama_dusun') }}"
-                       required>
+
+                <select
+                    id="nama_dusun"
+                    name="nama_dusun"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2C7961] focus:border-transparent @error('nama_dusun') border-red-500 @enderror"
+                    required
+                >
+                    <option value="">-- Pilih Dusun --</option>
+                    @for ($i = 1; $i <= 7; $i++)
+                        <option value="Dusun {{ $i }}" {{ old('nama_dusun') == "Dusun $i" ? 'selected' : '' }}>
+                            Dusun {{ $i }}
+                        </option>
+                    @endfor
+                </select>
+
                 @error('nama_dusun')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
 
             <div class="mb-6">
                 <label for="jumlah_anak_stunting" class="block text-gray-700 font-semibold mb-2">

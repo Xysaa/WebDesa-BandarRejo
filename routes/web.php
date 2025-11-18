@@ -14,7 +14,7 @@ use App\Http\Controllers\Dashboard\Penduduk\PekerjaanController;
 use App\Http\Controllers\Dashboard\Penduduk\PendudukController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfografisController;
-
+use App\Http\Controllers\Dashboard\DashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // Login & Logout
@@ -66,7 +66,7 @@ Route::middleware('auth')
             Route::get('bansos/{bansos}/detail', [BansosController::class, 'detail'])
                 ->name('bansos.detail');
 
-                Route::resource('stunting', DataStuntingController::class)
+        Route::resource('stunting', DataStuntingController::class)
         ->names([
             'index'   => 'stunting.index',
             'create'  => 'stunting.create',
@@ -83,7 +83,8 @@ Route::middleware('auth')
 
         // KHUSUS ADMIN
         Route::middleware('role:admin')->group(function () {
-            Route::get('/', fn() => view('dashboard.index'))->name('index');
+            Route::get('/', [DashboardController::class, 'index'])
+            ->name('index');
             Route::resource('berita', BeritaController::class)->except(['show']);
             Route::resource('potensi', PotensiDesaController::class)->except(['show']);
 

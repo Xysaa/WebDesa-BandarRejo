@@ -82,9 +82,7 @@
             <i class="fas fa-inbox text-gray-300 text-6xl mb-4"></i>
             <h3 class="text-xl font-bold text-gray-700 mb-2">Belum Ada Data Stunting</h3>
             <p class="text-gray-500 mb-4">Silakan klik tombol "Tambah Data Stunting" untuk menambahkan data baru.</p>
-            <a href="{{ route('dashboard.stunting.create') }}" class="bg-[#2C7961] hover:bg-[#256952] text-white px-6 py-3 rounded-lg font-semibold transition duration-200 inline-block">
-                <i class="fas fa-plus mr-2"></i> Tambah Data Pertama
-            </a>
+            
         </div>
     @endforelse
 </div>
