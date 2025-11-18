@@ -8,6 +8,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GaleriFotoController;
 use App\Http\Controllers\BansosController;
+use App\Http\Controllers\DataStuntingController;
 use App\Http\Controllers\Dashboard\Penduduk\PendidikanController;
 use App\Http\Controllers\Dashboard\Penduduk\PekerjaanController;
 use App\Http\Controllers\Dashboard\Penduduk\PendudukController;
@@ -19,7 +20,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Login & Logout
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
-
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
@@ -66,14 +66,24 @@ Route::middleware('auth')
             Route::get('bansos/{bansos}/detail', [BansosController::class, 'detail'])
                 ->name('bansos.detail');
 
-            Route::get('/stunting', fn() => view('dashboard.stunting'))
-                ->name('stunting');
+                Route::resource('stunting', DataStuntingController::class)
+        ->names([
+            'index'   => 'stunting.index',
+            'create'  => 'stunting.create',
+            'store'   => 'stunting.store',
+            'show'    => 'stunting.show',
+            'edit'    => 'stunting.edit',
+            'update'  => 'stunting.update',
+            'destroy' => 'stunting.destroy',
+        ])
+        ->parameters([
+            'stunting' => 'dataStunting'
+        ]);
         });
 
         // KHUSUS ADMIN
         Route::middleware('role:admin')->group(function () {
             Route::get('/', fn() => view('dashboard.index'))->name('index');
-
             Route::resource('berita', BeritaController::class)->except(['show']);
             Route::resource('potensi', PotensiDesaController::class)->except(['show']);
 

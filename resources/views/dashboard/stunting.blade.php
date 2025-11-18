@@ -7,145 +7,119 @@
 
 {{-- Tombol tambah data --}}
 <div class="mb-6">
-    <button id="btnTambah" class="bg-[#2C7961] hover:bg-[#256952] text-white px-4 py-2 rounded-lg font-semibold transition duration-200">
+    <a href="{{ route('dashboard.stunting.create') }}" class="bg-[#2C7961] hover:bg-[#256952] text-white px-4 py-2 rounded-lg font-semibold transition duration-200 inline-block">
         <i class="fas fa-plus mr-2"></i> Tambah Data Stunting
-    </button>
+    </a>
 </div>
 
-{{-- Form tambah/edit data stunting (hidden by default) --}}
-<div id="formContainer" class="hidden max-w-md bg-white rounded-lg shadow p-6 mb-8">
-    <h3 id="formTitle" class="text-xl font-bold text-[#2C7961] mb-4">Tambah Data Stunting Baru</h3>
-    <form id="formStunting" onsubmit="return simpanData(event)">
-        <input type="hidden" id="editIndex" value="">
-        <div class="mb-4">
-            <label for="namaDusun" class="block text-gray-700 font-semibold mb-2">Nama Dusun</label>
-            <input type="text" id="namaDusun" class="w-full px-4 py-2 border rounded" placeholder="Masukkan nama dusun" required>
-        </div>
-        <div class="mb-4">
-            <label for="jumlahAnak" class="block text-gray-700 font-semibold mb-2">Jumlah Anak Stunting</label>
-            <input type="number" id="jumlahAnak" class="w-full px-4 py-2 border rounded" min="0" value="0" required>
-        </div>
-        <div class="flex gap-2">
-            <button type="submit" class="bg-[#2C7961] text-white px-4 py-2 rounded hover:bg-[#256952]">Simpan</button>
-            <button type="button" onclick="batalEdit()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Batal</button>
-        </div>
-    </form>
-</div>
+{{-- Alert Messages --}}
+@if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <span class="block sm:inline">{{ session('success') }}</span>
+        <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
+            <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <title>Close</title>
+                <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
+            </svg>
+        </button>
+    </div>
+@endif
 
-{{-- Grid data stunting --}}
+@if(session('error'))
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <span class="block sm:inline">{{ session('error') }}</span>
+        <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
+            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <title>Close</title>
+                <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
+            </svg>
+        </button>
+    </div>
+@endif
+
+{{-- Grid data stunting dari database --}}
 <div id="stuntingGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    {{-- Data awal statis --}}
-    <div class="bg-white rounded-lg shadow p-6 text-center" data-index="0">
-        <div class="text-2xl font-bold text-[#2C7961] namaDusun">Dusun 1</div>
-        <div class="text-4xl font-bold text-yellow-600 my-2 jumlahAnak">12</div>
-        <div class="text-gray-600">Anak Stunting</div>
-        <button onclick="editData(0)" class="mt-4 bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-1 rounded font-semibold">Edit</button>
-    </div>
-    <div class="bg-white rounded-lg shadow p-6 text-center" data-index="1">
-        <div class="text-2xl font-bold text-[#2C7961] namaDusun">Dusun 2</div>
-        <div class="text-4xl font-bold text-yellow-600 my-2 jumlahAnak">8</div>
-        <div class="text-gray-600">Anak Stunting</div>
-        <button onclick="editData(1)" class="mt-4 bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-1 rounded font-semibold">Edit</button>
-    </div>
-    <div class="bg-white rounded-lg shadow p-6 text-center" data-index="2">
-        <div class="text-2xl font-bold text-[#2C7961] namaDusun">Dusun 3</div>
-        <div class="text-4xl font-bold text-yellow-600 my-2 jumlahAnak">5</div>
-        <div class="text-gray-600">Anak Stunting</div>
-        <button onclick="editData(2)" class="mt-4 bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-1 rounded font-semibold">Edit</button>
-    </div>
+    @forelse($dataStuntings as $stunting)
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition duration-300">
+            <div class="text-2xl font-bold text-[#2C7961] mb-2">{{ $stunting->nama_dusun }}</div>
+            
+            <div class="text-5xl font-bold my-4 {{ $stunting->jumlah_anak_stunting > 0 ? 'text-red-600' : 'text-green-600' }}">
+                {{ $stunting->jumlah_anak_stunting }}
+            </div>
+            
+            <div class="text-gray-600 mb-2">Anak Stunting</div>
+            
+            @if($stunting->tahun)
+                <div class="text-sm text-gray-500 mb-3">Tahun {{ $stunting->tahun }}</div>
+            @endif
+            
+            @if($stunting->keterangan)
+                <div class="text-sm text-gray-600 mb-4 line-clamp-2">
+                    {{ Str::limit($stunting->keterangan, 60) }}
+                </div>
+            @endif
+            
+            <div class="flex gap-2 justify-center mt-4">
+                </a>
+                <a href="{{ route('dashboard.stunting.edit', $stunting->id) }}" 
+                   class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded font-semibold transition duration-200 text-sm">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <form action="{{ route('dashboard.stunting.destroy', $stunting->id) }}" 
+                      method="POST" 
+                      class="inline-block"
+                      onsubmit="return confirm('Apakah Anda yakin ingin menghapus data stunting di {{ $stunting->nama_dusun }}?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded font-semibold transition duration-200 text-sm">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    @empty
+        <div class="col-span-full bg-white rounded-lg shadow p-12 text-center">
+            <i class="fas fa-inbox text-gray-300 text-6xl mb-4"></i>
+            <h3 class="text-xl font-bold text-gray-700 mb-2">Belum Ada Data Stunting</h3>
+            <p class="text-gray-500 mb-4">Silakan klik tombol "Tambah Data Stunting" untuk menambahkan data baru.</p>
+            <a href="{{ route('dashboard.stunting.create') }}" class="bg-[#2C7961] hover:bg-[#256952] text-white px-6 py-3 rounded-lg font-semibold transition duration-200 inline-block">
+                <i class="fas fa-plus mr-2"></i> Tambah Data Pertama
+            </a>
+        </div>
+    @endforelse
 </div>
 
-<div class="mt-8">
+{{-- Pagination --}}
+@if($dataStuntings->hasPages())
+    <div class="mt-8">
+        {{ $dataStuntings->links() }}
+    </div>
+@endif
+
+{{-- Statistik Total --}}
+@if($dataStuntings->count() > 0)
+    <div class="mt-8 bg-[#2C7961] text-white rounded-lg shadow-lg p-6">
+        <h3 class="text-xl font-bold mb-4">Ringkasan Data</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="text-center">
+                <div class="text-3xl font-bold">{{ $dataStuntings->count() }}</div>
+                <div class="text-sm">Dusun Tercatat</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold">{{ $dataStuntings->sum('jumlah_anak_stunting') }}</div>
+                <div class="text-sm">Total Anak Stunting</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold">{{ number_format($dataStuntings->avg('jumlah_anak_stunting'), 1) }}</div>
+                <div class="text-sm">Rata-rata per Dusun</div>
+            </div>
+        </div>
+    </div>
+@endif
+
+<div class="mt-8 bg-white rounded-lg shadow p-6">
     <h3 class="text-xl font-bold text-[#2C7961] mb-4">Catatan & Tindak Lanjut</h3>
-    <p class="text-gray-700">Data stunting di atas dapat digunakan untuk intervensi program kesehatan dan pemantauan perkembangan anak di setiap dusun.</p>
+    <p class="text-gray-700">Data stunting di atas dapat digunakan untuk intervensi program kesehatan dan pemantauan perkembangan anak di setiap dusun. Pastikan data selalu diperbarui secara berkala untuk pemantauan yang optimal.</p>
 </div>
 
-<script>
-    const stuntingGrid = document.getElementById('stuntingGrid');
-    const formContainer = document.getElementById('formContainer');
-    const formTitle = document.getElementById('formTitle');
-    const formStunting = document.getElementById('formStunting');
-    const btnTambah = document.getElementById('btnTambah');
-    const inputNamaDusun = document.getElementById('namaDusun');
-    const inputJumlahAnak = document.getElementById('jumlahAnak');
-    const inputEditIndex = document.getElementById('editIndex');
-
-    // Data awal (sinkron dengan kartu statis)
-    let dataStunting = [
-        { namaDusun: 'Dusun 1', jumlahAnak: 12 },
-        { namaDusun: 'Dusun 2', jumlahAnak: 8 },
-        { namaDusun: 'Dusun 3', jumlahAnak: 5 },
-    ];
-
-    // Tampilkan form tambah data
-    btnTambah.addEventListener('click', () => {
-        formTitle.textContent = 'Tambah Data Stunting Baru';
-        inputNamaDusun.value = '';
-        inputJumlahAnak.value = 0;
-        inputEditIndex.value = '';
-        formContainer.classList.remove('hidden');
-        window.scrollTo({ top: formContainer.offsetTop - 80, behavior: 'smooth' });
-    });
-
-    // Fungsi batal edit/tambah
-    function batalEdit() {
-        formContainer.classList.add('hidden');
-        formStunting.reset();
-        inputEditIndex.value = '';
-    }
-
-    // Fungsi simpan data (tambah atau edit)
-    function simpanData(e) {
-        e.preventDefault();
-        const namaDusun = inputNamaDusun.value.trim();
-        const jumlahAnak = parseInt(inputJumlahAnak.value);
-
-        if (!namaDusun || isNaN(jumlahAnak) || jumlahAnak < 0) {
-            alert('Mohon isi data dengan benar.');
-            return false;
-        }
-
-        const editIndex = inputEditIndex.value;
-
-        if (editIndex === '') {
-            // Tambah data baru
-            dataStunting.push({ namaDusun, jumlahAnak });
-        } else {
-            // Edit data existing
-            dataStunting[editIndex] = { namaDusun, jumlahAnak };
-        }
-
-        renderGrid();
-        batalEdit();
-        return false;
-    }
-
-    // Render ulang grid kartu
-    function renderGrid() {
-        stuntingGrid.innerHTML = '';
-        dataStunting.forEach((item, index) => {
-            const card = document.createElement('div');
-            card.className = 'bg-white rounded-lg shadow p-6 text-center';
-            card.setAttribute('data-index', index);
-            card.innerHTML = `
-                <div class="text-2xl font-bold text-[#2C7961] namaDusun">${item.namaDusun}</div>
-                <div class="text-4xl font-bold text-yellow-600 my-2 jumlahAnak">${item.jumlahAnak}</div>
-                <div class="text-gray-600">Anak Stunting</div>
-                <button onclick="editData(${index})" class="mt-4 bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-1 rounded font-semibold">Edit</button>
-            `;
-            stuntingGrid.appendChild(card);
-        });
-    }
-
-    // Fungsi edit data
-    function editData(index) {
-        const item = dataStunting[index];
-        formTitle.textContent = 'Edit Data Stunting';
-        inputNamaDusun.value = item.namaDusun;
-        inputJumlahAnak.value = item.jumlahAnak;
-        inputEditIndex.value = index;
-        formContainer.classList.remove('hidden');
-        window.scrollTo({ top: formContainer.offsetTop - 80, behavior: 'smooth' });
-    }
-</script>
 @endsection
