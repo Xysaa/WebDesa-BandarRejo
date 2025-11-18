@@ -10,30 +10,63 @@ use App\Http\Controllers\GaleriFotoController;
 use App\Http\Controllers\BansosController;
 use App\Http\Controllers\DataStuntingController;
 use App\Http\Controllers\Dashboard\Penduduk\PendidikanController;
+use App\Http\Controllers\Dashboard\Penduduk\PekerjaanController;
+use App\Http\Controllers\Dashboard\Penduduk\PendudukController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InfografisController;
 
-Route::view('/', 'home')->name('home');
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
 // Login & Logout
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::prefix('dashboard')->name('dashboard.')->group(function () {
-    Route::get('/', fn() => view('dashboard.index'))->name('index');
-    Route::get('/penduduk', fn() => view('dashboard.penduduk'))->name('penduduk');
-    Route::resource('bansos', BansosController::class)
-    ->names([
-        'index'   => 'bansos.index',
-        'create'  => 'bansos.create',
-        'store'   => 'bansos.store',
-        'show'    => 'bansos.show',
-        'edit'    => 'bansos.edit',
-        'update'  => 'bansos.update',
-        'destroy' => 'bansos.destroy',
-    ])
-    ->parameters([
-        'bansos' => 'bansos',
-    ]);
-    Route::resource('stunting', DataStuntingController::class)
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
+Route::middleware('auth')
+    ->prefix('dashboard')
+    ->name('dashboard.')
+    ->group(function () {
+
+        // ADMIN + KEPALA DUSUN
+        Route::middleware('role:admin,kepala_dusun')->group(function () {
+            Route::prefix('penduduk')->group(function () {
+                    Route::get('/', [PendudukController::class, 'index'])
+                        ->name('penduduk');
+                    Route::post('/penduduk', [PendudukController::class, 'store'])
+                        ->name('penduduk.store');
+                    Route::put('/penduduk/{penduduk}', [PendudukController::class, 'update'])
+                        ->name('penduduk.update');
+                    Route::delete('/penduduk/{penduduk}', [PendudukController::class, 'destroy'])
+                        ->name('penduduk.destroy');
+                Route::get('/pekerjaan', [PekerjaanController::class, 'index'])
+                    ->name('pekerjaan.index');
+                Route::post('/pekerjaan', [PekerjaanController::class, 'store'])
+                    ->name('pekerjaan.store');
+                Route::put('/pekerjaan/{pekerjaan}', [PekerjaanController::class, 'update'])
+                ->name('pekerjaan.update');
+                Route::delete('/pekerjaan/{pekerjaan}', [PekerjaanController::class, 'destroy'])
+                    ->name('pekerjaan.destroy');
+            });
+
+            Route::resource('bansos', BansosController::class)
+                ->names([
+                    'index'   => 'bansos.index',
+                    'create'  => 'bansos.create',
+                    'store'   => 'bansos.store',
+                    'show'    => 'bansos.show',
+                    'edit'    => 'bansos.edit',
+                    'update'  => 'bansos.update',
+                    'destroy' => 'bansos.destroy',
+                ])
+                ->parameters([
+                    'bansos' => 'bansos',
+                ]);
+
+            Route::get('bansos/{bansos}/detail', [BansosController::class, 'detail'])
+                ->name('bansos.detail');
+
+                Route::resource('stunting', DataStuntingController::class)
         ->names([
             'index'   => 'stunting.index',
             'create'  => 'stunting.create',
@@ -46,55 +79,31 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         ->parameters([
             'stunting' => 'dataStunting'
         ]);
-    Route::prefix('penduduk')->group(function () {
-        // Ringkasan Kependudukan
-        Route::get('/', fn() => view('dashboard.penduduk'))->name('penduduk');
+        });
 
-        // Data Pendidikan
-        Route::get('/pendidikan', fn() => view('dashboard.penduduk.pendidikan'))
-            ->name('penduduk.pendidikan');
+        // KHUSUS ADMIN
+        Route::middleware('role:admin')->group(function () {
+            Route::get('/', fn() => view('dashboard.index'))->name('index');
+            Route::resource('berita', BeritaController::class)->except(['show']);
+            Route::resource('potensi', PotensiDesaController::class)->except(['show']);
 
-        // Data Pekerjaan
-        Route::get('/pekerjaan', fn() => view('dashboard.penduduk.pekerjaan'))
-            ->name('penduduk.pekerjaan');
+            Route::resource('galeri-foto', GaleriFotoController::class)
+                ->names('galeri-foto');
+            Route::get('galeri-foto/{galeri_foto}/detail', [GaleriFotoController::class, 'detail'])
+                ->name('galeri-foto.detail');
 
-        // Data Kelompok Umur
-        Route::get('/umur', fn() => view('dashboard.penduduk.umur'))
-            ->name('penduduk.umur');
+            Route::get('/kepaladusun', fn() => view('dashboard.kadus'))
+                ->name('kepaladusun');
 
-        // Data Agama
-        Route::get('/agama', fn() => view('dashboard.penduduk.agama'))
-            ->name('penduduk.agama');
-
-        // Data Perkawinan
-        Route::get('/perkawinan', fn() => view('dashboard.penduduk.perkawinan'))
-            ->name('penduduk.perkawinan');
-
-        // Data Per Dusun
-        Route::get('/dusun', fn() => view('dashboard.penduduk.dusun'))
-            ->name('penduduk.dusun');
+            Route::resource('feedback', FeedbackController::class)->names('feedback');
+            Route::get('feedback/{feedback}/detail', [FeedbackController::class, 'detail'])
+                ->name('feedback.detail');
+        });
     });
-    Route::get('bansos/{bansos}/detail', [BansosController::class, 'detail'])
-            ->name('bansos.detail');
 
-    // Resource routes
-    Route::resource('berita', BeritaController::class)->except(['show']);
-    Route::resource('potensi', PotensiDesaController::class)->except(['show']);
-    
-    Route::resource('galeri-foto', GaleriFotoController::class)->names('galeri-foto');
-    Route::get('galeri-foto/{galeri_foto}/detail', [GaleriFotoController::class, 'detail'])->name('galeri-foto.detail');
-    Route::get('stunting/{dataStunting}/detail', [DataStuntingController::class, 'detail'])
-        ->name('stunting.detail');
-    Route::get('/kepaladusun', fn() => view('dashboard.kadus'))->name('kepaladusun');
-    Route::resource('feedback', FeedbackController::class)->names('feedback');
-    Route::get('feedback/{feedback}/detail', [FeedbackController::class, 'detail'])->name('feedback.detail');
-
-});
 Route::get('/berita', [BeritaController::class, 'indexPublic'])->name('berita.public');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
-Route::get('/infografis', function () {
-    return view('infografis');
-});
+Route::get('/infografis', [InfografisController::class, 'index'])->name('infografis');
 Route::get('/profil-desa', function () {
     return view('profil');
 });
