@@ -8,7 +8,9 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GaleriFotoController;
 use App\Http\Controllers\BansosController;
+use App\Http\Controllers\DataStuntingController;
 use App\Http\Controllers\Dashboard\Penduduk\PendidikanController;
+
 Route::view('/', 'home')->name('home');
 
 // Login & Logout
@@ -18,7 +20,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', fn() => view('dashboard.index'))->name('index');
     Route::get('/penduduk', fn() => view('dashboard.penduduk'))->name('penduduk');
-     Route::resource('bansos', BansosController::class)
+    Route::resource('bansos', BansosController::class)
     ->names([
         'index'   => 'bansos.index',
         'create'  => 'bansos.create',
@@ -31,6 +33,19 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     ->parameters([
         'bansos' => 'bansos',
     ]);
+    Route::resource('stunting', DataStuntingController::class)
+        ->names([
+            'index'   => 'stunting.index',
+            'create'  => 'stunting.create',
+            'store'   => 'stunting.store',
+            'show'    => 'stunting.show',
+            'edit'    => 'stunting.edit',
+            'update'  => 'stunting.update',
+            'destroy' => 'stunting.destroy',
+        ])
+        ->parameters([
+            'stunting' => 'dataStunting'
+        ]);
     Route::prefix('penduduk')->group(function () {
         // Ringkasan Kependudukan
         Route::get('/', fn() => view('dashboard.penduduk'))->name('penduduk');
@@ -68,7 +83,8 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     
     Route::resource('galeri-foto', GaleriFotoController::class)->names('galeri-foto');
     Route::get('galeri-foto/{galeri_foto}/detail', [GaleriFotoController::class, 'detail'])->name('galeri-foto.detail');
-    Route::get('/stunting', fn() => view('dashboard.stunting'))->name('stunting');
+    Route::get('stunting/{dataStunting}/detail', [DataStuntingController::class, 'detail'])
+        ->name('stunting.detail');
     Route::get('/kepaladusun', fn() => view('dashboard.kadus'))->name('kepaladusun');
     Route::resource('feedback', FeedbackController::class)->names('feedback');
     Route::get('feedback/{feedback}/detail', [FeedbackController::class, 'detail'])->name('feedback.detail');

@@ -49,7 +49,7 @@
                 </a>
             </div>
         </div>
-        <a href="{{ route('dashboard.stunting') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.stunting') ? 'bg-[#256952] font-semibold' : '' }}">
+        <a href="{{ route('dashboard.stunting.index') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.stunting') ? 'bg-[#256952] font-semibold' : '' }}">
             <i class="fas fa-child mr-2"></i> Data Stunting
         </a>
         <a href="{{ route('dashboard.bansos.index') }}" class="block px-4 py-2 rounded-lg hover:bg-[#256952] transition duration-200 {{ request()->routeIs('dashboard.bansos') ? 'bg-[#256952] font-semibold' : '' }}">
