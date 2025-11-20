@@ -8,7 +8,7 @@
         <!-- Judul Utama -->
         <h2 class="text-5xl md:text-6xl font-extrabold text-green-700 leading-tight mb-0 flex flex-col justify-center">
             <span>DATA INFOGRAFIS DESA</span>
-            <span>BANDAR REJO</span>
+            <span>BANDAREJO</span>
         </h2>
         <div class="border-b-2 border-gray-300 mt-2 mb-4"></div>
     </div>
@@ -28,7 +28,7 @@
       <div>
         <h3 class="text-5xl font-bold text-white mb-4">DEMOGRAFI PENDUDUK</h3>
         <p class="text-xl text-white leading-relaxed">
-          Memberikan informasi lengkap mengenai karakteristik demografi penduduk Desa Bandar Rejo.
+          Memberikan informasi lengkap mengenai karakteristik demografi penduduk Desa Bandarejo.
           Data di bawah ini diambil secara langsung dari sistem administrasi kependudukan desa,
           meliputi jumlah penduduk, kepala keluarga, komposisi jenis kelamin, kelompok umur,
           tingkat pendidikan, pekerjaan, agama, serta status perkawinan.

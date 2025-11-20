@@ -5,7 +5,7 @@
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-10 font-poppins" id="berita-container">
   <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-700 mb-2 sm:mb-3">Berita Desa</h2>
   <p class="text-base sm:text-lg text-black mb-6 sm:mb-8">
-    Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa Bandar Rejo
+    Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa Bandarejo
   </p>
 
   {{-- Grid responsif: 1 kolom (mobile), 2 kolom (sm/md), 3 kolom (lg+) --}}

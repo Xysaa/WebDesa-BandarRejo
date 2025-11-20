@@ -11,7 +11,7 @@
 <aside class="w-64 bg-[#2C7961] text-white min-h-screen flex flex-col shadow-lg">
     <div class="p-6 border-b border-white/10 text-center">
         <img src="{{ asset('images/Logo.png') }}" class="h-12 w-12 rounded-full bg-white p-1 mx-auto mb-2">
-        <div class="font-bold text-xl">Desa Bandar Rejo</div>
+        <div class="font-bold text-xl">Desa Bandarejo</div>
         <div class="text-sm text-white/70">Dasbor {{ $role === 'kepala_dusun' ? 'Kepala Dusun' : 'Admin' }}</div>
     </div>
 

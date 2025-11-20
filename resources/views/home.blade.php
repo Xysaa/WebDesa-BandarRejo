@@ -13,10 +13,10 @@
         <!-- Konten teks -->
         <div class="relative z-10 px-6">
             <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                Selamat Datang di Website Resmi Desa Bandar Rejo
+                Selamat Datang di Website Resmi Desa Bandarejo
             </h1>
             <p class="text-white leading-relaxed max-w-2xl mx-auto">
-                Website Resmi Pemerintah Desa Bandar Rejo, Kecamatan Natar, Kabupaten Lampung Selatan.
+                Website Resmi Pemerintah Desa Bandarejo, Kecamatan Natar, Kabupaten Lampung Selatan.
                 Dapatkan informasi terbaru seputar desa, layanan publik, dan kegiatan masyarakat.
             </p>
         </div>
@@ -92,7 +92,7 @@
         <div class="grid gap-8 md:grid-cols-12 items-center">
             <div class="md:col-span-4 flex justify-center md:justify-start">
                 <div class="w-56 h-56 md:w-64 md:h-64 rounded-full bg-gray-200 overflow-hidden">
-                    <img src="{{ asset('images/kades-dummy.jpg') }}"
+                    <img src="{{ asset('images/kades.jpg') }}"
                          alt="Kepala Desa"
                          class="w-full h-full object-cover">
                 </div>
@@ -101,16 +101,16 @@
             {{-- Teks sambutan --}}
             <div class="md:col-span-8">
                 <h3 class="text-2xl md:text-3xl font-extrabold text-[#2C7961]">
-                    Sambutan Kepala Desa Data
+                    Sambutan Kepala Desa Bandarejo
                 </h3>
                 <div class="mt-1">
                     <p class="text-xs font-extrabold tracking-wide text-black">SULARTO</p>
-                    <p class="text-[11px] uppercase tracking-wide text-black/60">KEPALA DESA DATA</p>
+                    <p class="text-[11px] uppercase tracking-wide text-black/60">KEPALA DESA BANDAREJO</p>
                 </div>
                 <p class="mt-4 text-sm md:text-base leading-relaxed text-black/80 text-justify">
-                    Selamat datang di Website Resmi Pemerintah Desa Bandar Rejo, Kecamatan Natar, Kabupaten Lampung Selatan.
+                    Selamat datang di Website Resmi Pemerintah Desa Bandarejo, Kecamatan Natar, Kabupaten Lampung Selatan.
                     Website ini hadir sebagai sarana informasi yang bertujuan untuk memberikan pelayanan yang lebih baik dan
-                    lebih cepat kepada seluruh masyarakat Desa Data. Dengan kemajuan teknologi yang semakin pesat, kami berharap
+                    lebih cepat kepada seluruh masyarakat Desa Bandarejo. Dengan kemajuan teknologi yang semakin pesat, kami berharap
                     platform ini dapat menjadi jembatan yang menghubungkan antara pemerintah desa dengan warga.
                     Melalui website ini, masyarakat dapat dengan mudah mengakses berbagai informasi penting terkait program,
                     kegiatan, dan kebijakan yang dilaksanakan oleh Pemerintah Desa Bandar Rejo.
@@ -124,15 +124,22 @@
         <div class="max-w-7xl mx-auto px-4 md:px-6">
             <h2 class="text-2xl md:text-3xl font-extrabold text-[#2C7961]">SOTK</h2>
             <p class="text-sm md:text-base text-black/80 mt-1">
-                Struktur Organisasi dan Tata Kerja Desa Data
+                Struktur Organisasi dan Tata Kerja Desa Bandarejo
             </p>
 
             @php
                 $pejabat = [
-                    ['nama' => 'A.NAJAMUDDIN','jabatan' => 'Kepala Desa','foto' => asset('images/pejabat-1.jpg')],
-                    ['nama' => 'ILVA ISTI','jabatan' => 'Sekretaris Desa','foto' => asset('images/pejabat-2.jpg')],
-                    ['nama' => 'SAIFUL NURHIDAYAT','jabatan' => 'Bendahar Desa','foto' => asset('images/pejabat-3.jpg')],
-                    ['nama' => 'FITRIANI','jabatan' => 'Koordinasi Umum dan Perencanaan','foto' => asset('images/pejabat-4.jpg')],
+                    ['nama' => 'Sularto','jabatan' => 'Kepala Desa','foto' => asset('images/kades.jpg')],
+                    ['nama' => 'Sutrisno','jabatan' => 'Sekretaris Desa','foto' => asset('images/sekdes.jpg')],
+                    ['nama' => 'Sri Rahayu','jabatan' => 'Bendahara Desa','foto' => asset('images/pejabat-3.jpg')],
+                    ['nama' => 'Supriyadi','jabatan' => 'Kepala Urusan Perencanaan','foto' => asset('images/kaur-perencanaan.jpg')],
+                    ['nama' => 'Budi Santoso','jabatan' => 'Kepala Urusan TU dan Umum','foto' => asset('images/kaur-tu.jpg')],
+                    ['nama' => 'Suparto','jabatan' => 'Kasi Kesra','foto' => asset('images/kasikesra.jpg')],
+                    ['nama' => 'Suseno','jabatan' => 'Kasi Pelayanan','foto' => asset('images/kasipelayanan.jpg')],
+                    ['nama' => 'Jarman','jabatan' => 'Kepala Dusun 1','foto' => asset('images/kadus1.jpg')],
+                    ['nama' => 'Tomad','jabatan' => 'Kepala Dusun 2','foto' => asset('images/kadus2.jpg')],
+                    ['nama' => 'Marsudi','jabatan' => 'Kepala Dusun 4','foto' => asset('images/kadus4.jpg')],
+                    ['nama' => 'Suraji','jabatan' => 'Kepala Dusun 6','foto' => asset('images/kadus6.jpg')],
                 ];
                 $placeholder = asset('images/kades-dummy.jpg');
             @endphp
@@ -144,7 +151,7 @@
                             <img
                                 src="{{ $p['foto'] ?: $placeholder }}"
                                 alt="{{ $p['nama'] }}"
-                                class="w-40 h-48 object-contain drop-shadow"
+                                class="w-100 h-48 object-contain drop-shadow"
                                 onerror="this.src='{{ $placeholder }}'">
                         </div>
 

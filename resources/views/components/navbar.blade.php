@@ -15,7 +15,7 @@
                 <img src="{{ asset('images/Logo.png') }}" alt="Logo Desa"
                      class="h-8 w-8 object-contain rounded-full bg-white/10 ring-1 ring-white/20" />
                 <div class="leading-tight">
-                    <div class="text-sm md:text-base font-semibold">Desa Bandar Rejo</div>
+                    <div class="text-sm md:text-base font-semibold">Desa Bandarejo</div>
                     <div class="text-[11px] md:text-xs text-white/80">Kabupaten Lampung Selatan</div>
                 </div>
             </a>

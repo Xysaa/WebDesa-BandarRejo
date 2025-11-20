@@ -1,13 +1,13 @@
 @props([
-    'alamat' => "Bandar Rejo, Kec. Natar,
+    'alamat' => "Bandarejo, Kec. Natar,
 Kabupaten Lampung Selatan,
 Lampung 35362, Indonesia
 
-Bandar Rejo, Kecamatan Natar,
+Bandarejo, Kecamatan Natar,
 Kabupaten Lampung Selatan
 Provinsi Lampung 35362",
     'telp' => '000000000000',
-    'email' => 'bandarrejo.com',
+    'email' => 'bandarejo.com',
     'tahun' => now()->year,
 ])
 
@@ -21,7 +21,7 @@ Provinsi Lampung 35362",
                     <img src="{{ asset('images/Logo.png') }}" alt="Logo Desa"
                          class="h-16 w-16 object-contain rounded-full">
                     <div class="text-sm leading-relaxed">
-                        <div class="font-semibold mb-1">Pemerintah Desa Bandar Rejo</div>
+                        <div class="font-semibold mb-1">Pemerintah Desa Bandarejo</div>
                         <p class="whitespace-pre-line text-white/90">
                             {{ $alamat }}
                         </p>
