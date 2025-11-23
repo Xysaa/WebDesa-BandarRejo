@@ -42,37 +42,33 @@
         {{-- ====== BAGAN DESA ====== --}}
         <section class="bg-white py-12 px-4 md:px-20 lg:px-32">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-2xl font-semibold text-green-700 mb-6">Bagan Desa</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="text-center">
-                        <h3 class="font-medium mb-3">Struktur Organisasi Pemerintahan Desa</h3>
-                        <img src="{{ asset('images/struktur-pemerintahan.png') }}" alt="Struktur Organisasi Pemerintahan Desa" class="rounded-xl shadow-sm w-full object-cover">
-                    </div>
-                    <div class="text-center">
-                        <h3 class="font-medium mb-3">Struktur Organisasi Badan Permusyawaratan Desa</h3>
-                        <img src="{{ asset('images/struktur-bpd.png') }}" alt="Struktur Organisasi BPD" class="rounded-xl shadow-sm w-full object-cover">
+                <h2 class="text-2xl font-semibold text-green-700 mb-6 text-center">Struktur Organisasi Pemerintahan Desa</h2>
+                <div class="flex justify-center">
+                    <div class="w-full max-w-4xl">
+                        <img src="{{ asset('images/Bagan Desa_1.jpg') }}" 
+                             alt="Struktur Organisasi Pemerintahan Desa" 
+                             class="rounded-xl shadow-lg w-full object-contain">
                     </div>
                 </div>
             </div>
         </section>
 
         {{-- ====== SEJARAH DAN KONDISI GEOGRAFIS ====== --}}
-<section class="bg-[#EAFBF1] py-12 px-4 md:px-20 lg:px-32">
-    <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-green-700 mb-8">Sejarah dan Kondisi Geografis</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-            <img src="{{ asset('images/profildesa.png') }}" 
-            alt="Sejarah Desa Bandar Rejo"
-            class="rounded-xl shadow-md w-full object-cover">
-            <div>
-                <p class="text-gray-700 leading-relaxed text-justify">
-                    Desa Bandar Rejo terbentuk melalui program transmigrasi yang membawa penduduk dari Pulau Jawa untuk membuka dan mengelola lahan baru di kawasan Natar. Sejak awal, kegiatan ekonomi desa didominasi oleh pertanian—khususnya padi, jagung, dan palawija—yang tetap menjadi mata pencaharian utama hingga saat ini. Secara geografis, desa memiliki luas sekitar 817 hektare dan terletak di wilayah dataran rendah yang cocok untuk pertanian. Administratif desa dibagi menjadi 6 dusun dan 17 RT. Jarak ke pusat Kecamatan Natar sekitar 22 km dan ke ibu kota Kabupaten Lampung Selatan (Kalianda) sekitar 90 km. Akses jalan menuju desa mendukung pergerakan komoditas pertanian ke pasar kecamatan.
-                </p>
+        <section class="bg-[#EAFBF1] py-12 px-4 md:px-20 lg:px-32">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold text-green-700 mb-8">Sejarah dan Kondisi Geografis</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+                    <img src="{{ asset('images/profildesa.png') }}" 
+                         alt="Sejarah Desa Bandar Rejo"
+                         class="rounded-xl shadow-md w-full object-cover">
+                    <div>
+                        <p class="text-gray-700 leading-relaxed text-justify">
+                            Desa Bandar Rejo terbentuk melalui program transmigrasi yang membawa penduduk dari Pulau Jawa untuk membuka dan mengelola lahan baru di kawasan Natar. Sejak awal, kegiatan ekonomi desa didominasi oleh pertanian—khususnya padi, jagung, dan palawija—yang tetap menjadi mata pencaharian utama hingga saat ini. Secara geografis, desa memiliki luas sekitar 817 hektare dan terletak di wilayah dataran rendah yang cocok untuk pertanian. Administratif desa dibagi menjadi 7 dusun dan 19 RT. Jarak ke pusat Kecamatan Natar sekitar 22 km dan ke ibu kota Kabupaten Lampung Selatan (Kalianda) sekitar 90 km. Akses jalan menuju desa mendukung pergerakan komoditas pertanian ke pasar kecamatan.
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
-
+        </section>
 
         {{-- ====== PETA LOKASI & BATAS DESA ====== --}}
         <section class="bg-white py-12 px-4 md:px-20 lg:px-32">
@@ -99,13 +95,15 @@
                         <p><span class="font-medium">Jumlah Penduduk (BPS):</span> 3.154 Jiwa</p>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden"
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31786.158225657124!2d105.26312028848467!3d-5.220248346599821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40c713ab488f55%3A0xf6dc504899f954ee!2sBandar%20Rejo%2C%20Kec.%20Natar%2C%20Kabupaten%20Lampung%20Selatan%2C%20Lampung!5e0!3m2!1sid!2sid!4v1761722726153!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        {{-- Google Maps embed menggunakan koordinat desa (lat, lng) --}}
-                        {{-- Koordinat yang digunakan: -5.229, 105.282 (contoh dari sumber wiki) --}}
-                        <iframe
-                            src="https://www.google.com/maps?q=-5.229,105.282&hl=id&z=13&output=embed"
-                            width="100%" height="360" style="border:0;" allowfullscreen loading="lazy">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31786.158225657124!2d105.26312028848467!3d-5.220248346599821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e40c713ab488f55%3A0xf6dc504899f954ee!2sBandar%20Rejo%2C%20Kec.%20Natar%2C%20Kabupaten%20Lampung%20Selatan%2C%20Lampung!5e0!3m2!1sid!2sid!4v1761722726153!5m2!1sid!2sid" 
+                            width="100%" 
+                            height="360" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                     </div>
                 </div>

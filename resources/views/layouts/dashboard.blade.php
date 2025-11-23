@@ -6,6 +6,10 @@
     <title>@yield('title', 'Dasbor Admin Desa')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    
+    {{-- ✅ TAMBAHKAN INI: AlpineJS --}}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
     <style>
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
@@ -32,6 +36,7 @@
             @yield('content')
         </main>
     </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Cari semua tombol trigger dropdown di sidebar

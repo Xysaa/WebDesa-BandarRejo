@@ -14,7 +14,7 @@ class DashboardController extends Controller
     {
         // --- Statistik utama ---
         $totalPenduduk   = Penduduk::count();
-        $totalKk         = Penduduk::distinct('no_kk')->count('no_kk');
+        $totalKk         = $totalPenduduk/4; // Asumsi 1 KK = 4 orang
         $totalLaki       = Penduduk::where('jenis_kelamin', 'Laki-laki')->count();
         $totalPerempuan  = Penduduk::where('jenis_kelamin', 'Perempuan')->count();
 

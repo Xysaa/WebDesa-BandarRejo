@@ -167,7 +167,7 @@
                 @endforeach
             </div>
 
-            <div class="mt-4 flex justify-end">
+            {{-- <div class="mt-4 flex justify-end">
                 <a href="{{ url('/struktur-organisasi') }}"
                    class="inline-flex items-center gap-2 text-[13px] font-extrabold tracking-wide text-black hover:text-[#2C7961] transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
@@ -175,12 +175,12 @@
                     </svg>
                     LIHAT STRUKTUR LEBIH LENGKAP
                 </a>
-            </div>
+            </div> --}}
         </div>
     </section>
 
     {{-- ================== ADMINISTRASI PENDUDUK ================== --}}
-    <section class="bg-gray-100 py-10">
+    {{-- <section class="bg-gray-100 py-10">
         <div class="max-w-7xl mx-auto px-4 md:px-6 font-poppins">
             <h2 class="text-2xl md:text-3xl font-extrabold text-[#2C7961]">Administrasi Penduduk</h2>
             <p class="text-sm md:text-base text-black/80 mt-1">
@@ -238,7 +238,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- ================= POTENSI DESA ================= --}}
     <section class="bg-white py-10">

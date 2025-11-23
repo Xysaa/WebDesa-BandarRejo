@@ -11,7 +11,7 @@ class InfografisController extends Controller
     {
         // --- Ringkasan utama ---
         $totalPenduduk   = Penduduk::count();
-        $kepalaKeluarga  = Penduduk::distinct('no_kk')->count('no_kk');
+        $kepalaKeluarga  = $totalPenduduk / 4; // Asumsi 1 KK = 4 orang
         $lakiLaki        = Penduduk::where('jenis_kelamin', 'Laki-laki')->count();
         $perempuan       = Penduduk::where('jenis_kelamin', 'Perempuan')->count();
 
