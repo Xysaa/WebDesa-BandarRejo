@@ -18,7 +18,7 @@
 <section class="bg-gray-100 pt-6 pb-12 px-8 md:px-12 lg:px-16">
 
   <!-- Bagian dengan background image -->
-  <div class="relative max-w-7xl mx-auto rounded-lg overflow-hidden" style="background-image: url('{{ asset('images/aset infografis/background.jpg') }}'); background-size: cover; background-position: center;">
+  <div class="relative max-w-7xl mx-auto rounded-lg overflow-hidden" style="background-image: url('{{ asset('images/aset_infografis/background.jpg') }}'); background-size: cover; background-position: center;">
 
     <!-- Overlay gelap -->
     <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
@@ -35,7 +35,7 @@
         </p>
       </div>
       <div class="flex justify-end">
-        <img src="{{ asset('images/aset infografis/Demografi.png') }}" alt="Demografi" class="w-full max-w-md relative z-10">
+        <img src="{{ asset('images/aset_infografis/Demografi.png') }}" alt="Demografi" class="w-full max-w-md relative z-10">
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@
     <h4 class="text-4xl font-bold text-green-700 mb-6">Jumlah Penduduk dan Kepala Keluarga</h4>
     <div class="grid md:grid-cols-2 gap-6 mb-8">
       <div class="bg-white/50 backdrop-blur rounded-lg shadow p-6 flex items-center gap-6 transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-        <img src="{{ asset('images/aset infografis/Total Penduduk.png') }}" alt="Population" class="w-34 h-24">
+        <img src="{{ asset('images/aset_infografis/Total Penduduk.png') }}" alt="Population" class="w-34 h-24">
         <div>
           <p class="text-2xl text-gray-700">TOTAL PENDUDUK</p>
           <p class="text-4xl">
@@ -56,7 +56,7 @@
       </div>
 
       <div class="bg-white/50 backdrop-blur rounded-lg shadow p-6 flex items-center gap-6 transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-        <img src="{{ asset('images/aset infografis/Kepala Keluarga.png') }}" alt="Family" class="w-34 h-24">
+        <img src="{{ asset('images/aset_infografis/Kepala Keluarga.png') }}" alt="Family" class="w-34 h-24">
         <div>
           <p class="text-2xl text-gray-700">KEPALA KELUARGA</p>
           <p class="text-4xl">
@@ -67,7 +67,7 @@
       </div>
 
       <div class="bg-white/50 backdrop-blur rounded-lg shadow p-6 flex items-center gap-6 transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-        <img src="{{ asset('images/aset infografis/Perempuan.png') }}" alt="Female" class="w-34 h-24">
+        <img src="{{ asset('images/aset_infografis/Perempuan.png') }}" alt="Female" class="w-34 h-24">
         <div>
           <p class="text-2xl text-gray-700">PEREMPUAN</p>
           <p class="text-4xl">
@@ -78,7 +78,7 @@
       </div>
 
       <div class="bg-white/50 backdrop-blur rounded-lg shadow p-6 flex items-center gap-6 transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-        <img src="{{ asset('images/aset infografis/laki-laki.png') }}" alt="Male" class="w-34 h-24">
+        <img src="{{ asset('images/aset_infografis/laki-laki.png') }}" alt="Male" class="w-34 h-24">
         <div>
           <p class="text-2xl text-gray-700">LAKI-LAKI</p>
           <p class="text-4xl">
@@ -192,12 +192,12 @@
 
         @php
             $perkawinanIcons = [
-                'Belum Kawin'            => 'images/aset infografis/belumkawin.png',
-                'Kawin'                  => 'images/aset infografis/kawin.png',
-                'Cerai Mati'             => 'images/aset infografis/mt.png',
-                'Kawin Tercatat'         => 'images/aset infografis/kawintercatat.png',
-                'Cerai Hidup'            => 'images/aset infografis/Cerai Hidup.png',
-                'Kawin Tidak Tercatat'   => 'images/aset infografis/kawin tak tercatat.png',
+                'Belum Kawin'            => 'images/aset_infografis/belumkawin.png',
+                'Kawin'                  => 'images/aset_infografis/kawin.png',
+                'Cerai Mati'             => 'images/aset_infografis/mt.png',
+                'Kawin Tercatat'         => 'images/aset_infografis/kawintercatat.png',
+                'Cerai Hidup'            => 'images/aset_infografis/Cerai Hidup.png',
+                'Kawin Tidak Tercatat'   => 'images/aset_infografis/kawin tak tercatat.png',
             ];
         @endphp
 
@@ -226,13 +226,13 @@
 
         @php
             $agamaIcons = [
-                'Islam'               => 'images/aset infografis/islam.png',
-                'Katolik'             => 'images/aset infografis/katolik.png',
-                'Hindu'               => 'images/aset infografis/hindu.png',
-                'Budha'               => 'images/aset infografis/budha.png',
-                'Konghucu'            => 'images/aset infografis/konghucu.png',
-                'Kristen'             => 'images/aset infografis/kristen.png',
-                'Kepercayaan Lainnya' => 'images/aset infografis/kepercayaan lain.png',
+                'Islam'               => 'images/aset_infografis/islam.png',
+                'Katolik'             => 'images/aset_infografis/katolik.png',
+                'Hindu'               => 'images/aset_infografis/hindu.png',
+                'Budha'               => 'images/aset_infografis/budha.png',
+                'Konghucu'            => 'images/aset_infografis/konghucu.png',
+                'Kristen'             => 'images/aset_infografis/kristen.png',
+                'Kepercayaan Lainnya' => 'images/aset_infografis/kepercayaan lain.png',
             ];
         @endphp
 
@@ -262,13 +262,13 @@
 
         @php
         $stuntingDusun = [
-            ['name' => 'Dusun 1', 'count' => 12, 'icon' => 'images/aset infografis/1.png'],
-            ['name' => 'Dusun 2', 'count' => 8,  'icon' => 'images/aset infografis/3.png'],
-            ['name' => 'Dusun 3', 'count' => 5,  'icon' => 'images/aset infografis/1.png'],
-            ['name' => 'Dusun 4', 'count' => 9,  'icon' => 'images/aset infografis/3.png'],
-            ['name' => 'Dusun 5', 'count' => 7,  'icon' => 'images/aset infografis/1.png'],
-            ['name' => 'Dusun 6', 'count' => 3,  'icon' => 'images/aset infografis/3.png'],
-            ['name' => 'Dusun 7', 'count' => 4,  'icon' => 'images/aset infografis/3.png'],
+            ['name' => 'Dusun 1', 'count' => 12, 'icon' => 'images/aset_infografis/1.png'],
+            ['name' => 'Dusun 2', 'count' => 8,  'icon' => 'images/aset_infografis/3.png'],
+            ['name' => 'Dusun 3', 'count' => 5,  'icon' => 'images/aset_infografis/1.png'],
+            ['name' => 'Dusun 4', 'count' => 9,  'icon' => 'images/aset_infografis/3.png'],
+            ['name' => 'Dusun 5', 'count' => 7,  'icon' => 'images/aset_infografis/1.png'],
+            ['name' => 'Dusun 6', 'count' => 3,  'icon' => 'images/aset_infografis/3.png'],
+            ['name' => 'Dusun 7', 'count' => 4,  'icon' => 'images/aset_infografis/3.png'],
         ];
         @endphp
 
@@ -295,11 +295,11 @@
 
     @php
     $bansosPrograms = [
-      ['name' => 'Program Keluarga Harapan',          'count' => 120, 'icon' => 'images/aset infografis/pkh.png'],
-      ['name' => 'Bantuan Pangan Non Tunai',         'count' => 98,  'icon' => 'images/aset infografis/bpnt.png'],
-      ['name' => 'Program Indonesia Pintar',         'count' => 75,  'icon' => 'images/aset infografis/pip.png'],
-      ['name' => 'Jaminan Kesehatan Nasional-KIS',   'count' => 150, 'icon' => 'images/aset infografis/jkn-kis.png'],
-      ['name' => 'Bantuan Langsung Tunai',           'count' => 60,  'icon' => 'images/aset infografis/blt.png'],
+      ['name' => 'Program Keluarga Harapan',          'count' => 120, 'icon' => 'images/aset_infografis/pkh.png'],
+      ['name' => 'Bantuan Pangan Non Tunai',         'count' => 98,  'icon' => 'images/aset_infografis/bpnt.png'],
+      ['name' => 'Program Indonesia Pintar',         'count' => 75,  'icon' => 'images/aset_infografis/pip.png'],
+      ['name' => 'Jaminan Kesehatan Nasional-KIS',   'count' => 150, 'icon' => 'images/aset_infografis/jkn-kis.png'],
+      ['name' => 'Bantuan Langsung Tunai',           'count' => 60,  'icon' => 'images/aset_infografis/blt.png'],
     ];
     @endphp
 
