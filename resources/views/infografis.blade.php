@@ -56,7 +56,7 @@
       </div>
 
       <div class="bg-white/50 backdrop-blur rounded-lg shadow p-6 flex items-center gap-6 transition-transform duration-200 hover:-translate-y-1 hover:shadow-md">
-        <img src="{{ asset('images/aset_infografis/Kepala Keluarga.png') }}" alt="Family" class="w-34 h-24">
+        <img src="{{ asset('images/aset_infografis/kepala_keluarga.png') }}" alt="Family" class="w-34 h-24">
         <div>
           <p class="text-2xl text-gray-700">KEPALA KELUARGA</p>
           <p class="text-4xl">
@@ -232,7 +232,7 @@
                 'Budha'               => 'images/aset_infografis/budha.png',
                 'Konghucu'            => 'images/aset_infografis/konghucu.png',
                 'Kristen'             => 'images/aset_infografis/kristen.png',
-                'Kepercayaan Lainnya' => 'images/aset_infografis/kepercayaan lain.png',
+                'Kepercayaan Lainnya' => 'images/aset_infografis/kepercayaan_lain.png',
             ];
         @endphp
 
